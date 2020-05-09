@@ -5,7 +5,7 @@ import CodeSnippet from './CodeSnippet.jsx'
 
 const categories = ['React', 'Javascript Algorithms', 'MongoDB', 'Express', 'SQL']
 
-const NavBar = props => {
+const NavBar = () => {
 
   const handleClick = () => {
     // Query for code snippets based on the category clicked
@@ -15,7 +15,7 @@ const NavBar = props => {
   // Use categories array instead of hardCoding
 
   return(
-    <div>
+    <div className='navBarContainer'>
 
       <div className="navBar">
         <ul id="categories">
@@ -25,10 +25,6 @@ const NavBar = props => {
           <li>Express</li>
           <li>SQL</li>
         </ul>
-      </div>
-
-      <div >
-        < CodeSnippet />
       </div>
 
     </div>

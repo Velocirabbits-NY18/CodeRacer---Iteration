@@ -9,13 +9,13 @@ class App extends Component {
 
     render() {
       return (
-        <div>
+        <div className='containers'>
 
-          <div>  
+          <div className='login'>  
             < LoginContainer />
           </div>
 
-          <div>
+          <div className='main'>
             < MainContainer />
           </div>
           
