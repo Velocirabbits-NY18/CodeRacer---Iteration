@@ -1,12 +1,11 @@
 import React, { Component, useState, useEffect } from 'react';
-import InputField from './InputField.jsx'
 
 
 
-const CodeSnippet = () => {
+const CodeSnippet = props => {
 
-  const fetchSnippet = () => {
-    //do stuff
+  const displaySnippet = props => {
+
   }
 
   return (

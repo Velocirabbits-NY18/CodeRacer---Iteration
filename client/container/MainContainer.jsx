@@ -6,13 +6,18 @@ import CodeSnippet from '../components/CodeSnippet.jsx'
 
 
 const MainContainer = () => {
+
+  const handleClick = (e) => {
+
+  }
+
   return (
     <div className='mainContainer'>
       <div className='navBarContainer'>
-        < NavBar />
+        < NavBar handleClick={ handleClick }/>
       </div>
 
-      <div className='codeSnipperContainer'>
+      <div className='codeSnippetContainer'>
         < CodeSnippet />
       </div>
 
@@ -24,4 +29,4 @@ const MainContainer = () => {
   )
 }
 
-export default MainContainer
+export default MainContainer;

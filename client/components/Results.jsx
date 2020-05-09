@@ -2,9 +2,12 @@ import React, { Component, useState, useEffect } from 'react';
 
 const Results = props => {
   
+  const getHighScore = () => {
+    
+  }
   
   return (
-    <div>
+    <div className='resultsContainer'>
 
       <div id='wpmAndScoreContainer'>
 
