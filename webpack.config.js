@@ -6,7 +6,8 @@ module.exports = {
     devServer: {
        publicPath: '/build/',
        proxy: {
-         '/callback': 'http://localhost:3000'
+         '/callback': 'http://localhost:3000',
+         '/api': 'http://localhost:3000'
        },
        port:8080,
        hot:true,
@@ -18,7 +19,7 @@ module.exports = {
         publicPath: 'http://localhost:8080/build/'
     },
     mode,
-    plugins:[ new MiniCssExtractPlugin(), new webpack.HotModuleReplacementPlugin() ],
+    plugins:[ new MiniCssExtractPlugin(), new webpack.HotModuleReplacementPlugin()],
     module:{
         rules:[
              { 
