@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './App.jsx';
+import App from './components/App.jsx';
 
 
 if (module && module.hot) {
@@ -8,6 +8,6 @@ if (module && module.hot) {
 }
 
 render(
-    <App/>,
+  <App/>,
   document.getElementById('root')
 );

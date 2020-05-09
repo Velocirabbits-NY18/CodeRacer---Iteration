@@ -19,7 +19,7 @@ module.exports = {
         publicPath: 'http://localhost:8080/build/'
     },
     mode,
-    plugins:[ new MiniCssExtractPlugin(), new webpack.HotModuleReplacementPlugin()],
+    plugins:[ new MiniCssExtractPlugin(), new webpack.HotModuleReplacementPlugin() ],
     module:{
         rules:[
              { 
