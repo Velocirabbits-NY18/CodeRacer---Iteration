@@ -13,18 +13,17 @@ const InputField = props => {
 
 
   return (
-    <div>
+    <div className='inputContainer'>
       <input id='textInput' type='text' placeholder="This is where people type stuff"></input>
 
       <p id='currentWPM'>
         {/* Current WPM */}
         95
       </p>
-
-      <div>
+      
+      <div className='resultsContainer'>
         < Results />
       </div>
-
     </div>
   )
 }

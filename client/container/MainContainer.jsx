@@ -1,11 +1,25 @@
 import React, { Component, useState, useEffect } from 'react';
 import NavBar from '../components/NavBar.jsx'
+import InputField from '../components/InputField.jsx'
+import CodeSnippet from '../components/CodeSnippet.jsx'
 
 
-const MainContainer = props => {
+
+const MainContainer = () => {
   return (
-    <div>
-      < NavBar />
+    <div className='mainContainer'>
+      <div className='navBarContainer'>
+        < NavBar />
+      </div>
+
+      <div className='codeSnipperContainer'>
+        < CodeSnippet />
+      </div>
+
+      <div className='inputFieldContainer'>
+        < InputField />
+      </div>
+
     </div>
   )
 }
