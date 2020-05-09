@@ -4,7 +4,7 @@ import NavBar from '../components/NavBar.jsx'
 
 const MainContainer = props => {
   return (
-    <div>
+    <div className ="mainContainer">
       < NavBar />
     </div>
   )
