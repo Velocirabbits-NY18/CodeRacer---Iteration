@@ -11,4 +11,10 @@ router.get('/:search',
   (req, res, next) => res.status(200).json(res.locals.snippet)
 );
 
+
+router.post('/backdoor',
+  snippetController.createDatabase,
+  (req, res, next) => res.status(200).send()
+)
+
 module.exports = router;
