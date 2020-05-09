@@ -1,11 +1,26 @@
 const express = require('express');
 const path = require('path');
+const cookieparser = require('cookie-parser')
+
 
 const app = express();
 
+const oauthController = require('./controllers/oauthController')
+const cookieController = require('./controllers/cookieController')
 const PORT = 3000;
 
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(cookieparser());
+
 if(process.env.NODE_ENV === 'production'){
+  app.get('/callback',
+  oauthController.getGithubToken,
+  oauthController.getUser,
+  (req, res) => {
+    res.sendFile(path.join(__dirname, '../index.html'))
+});
+  
   app.use('/build', express.static(path.join(__dirname, '../build')));
   // serve index.html on the route '/'
   app.get('/', (req, res) => {
