@@ -15,11 +15,6 @@ class MainContainer extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
-<<<<<<< HEAD
-      <div className='codeSnippetContainer'>
-        < CodeSnippet />
-      </div>
-=======
   handleClick(endpoint) {
     fetch(`/api/${endpoint}`)
       .then(snippet => snippet.json())
@@ -30,15 +25,7 @@ class MainContainer extends Component {
         this.setState({ content: chosenSnippet })
       })
   }
->>>>>>> 72c7af54527d302df5f3ff4e2efab01722081761
 
-<<<<<<< HEAD
-      <div className='inputFieldContainer'>
-        < InputField />
-      </div>
-    </div>
-  )
-=======
   componentDidMount() {
     fetch(`/api/`)
       .then(category => category.json())
@@ -72,7 +59,6 @@ class MainContainer extends Component {
       </div>
     )
   }
->>>>>>> master
 }
 
 
