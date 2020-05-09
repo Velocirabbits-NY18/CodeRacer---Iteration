@@ -3,14 +3,14 @@ import InputField from './InputField.jsx'
 
 
 
-const CodeSnippet = props => {
+const CodeSnippet = () => {
 
   const fetchSnippet = () => {
     //do stuff
   }
 
   return (
-    <div>
+    <div className='snippetContainer'>
 
       <div id="snippet">
         {/* fill this area with the text that is returned from the query */}
@@ -20,10 +20,6 @@ const CodeSnippet = props => {
           argo;airng;oirngao;irgno;rnag;ongrnaoisrngaoingoing;orgn;aosigna;oirng;oairng;oainrgoairng;aoingr
           ayroingaOUgn;oaireng;aoigrn;aorigna;oergn;aorg;oarubg;aoebrg;oaebrg;oebgr;oaeinbgiobrea;igb
         </p>
-      </div>
-
-      <div>
-        < InputField />
       </div>
 
     </div>
