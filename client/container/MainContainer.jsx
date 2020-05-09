@@ -12,7 +12,7 @@ const MainContainer = () => {
         < NavBar />
       </div>
 
-      <div className='codeSnipperContainer'>
+      <div className='codeSnippetContainer'>
         < CodeSnippet />
       </div>
 
