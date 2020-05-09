@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
-
+import LoginContainer from './container/loginContainer.jsx';
 
 class App extends Component{
     constructor(props){
@@ -9,7 +9,7 @@ class App extends Component{
     render(){
         return(
             <div>  
-             HELLO WORLD
+             <LoginContainer/>
             </div>
         )
     }
