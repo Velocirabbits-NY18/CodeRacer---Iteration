@@ -8,6 +8,6 @@ if (module && module.hot) {
 }
 
 render(
-    <App/>,
+  <App/>,
   document.getElementById('root')
 );
