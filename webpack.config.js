@@ -6,12 +6,8 @@ module.exports = {
     devServer: {
        publicPath: '/build/',
        proxy: {
-<<<<<<< HEAD
          '/callback': 'http://localhost:3000',
          '/api': 'http://localhost:3000'
-=======
-         '/callback': 'http://localhost:3000'
->>>>>>> master
        },
        port:8080,
        hot:true,

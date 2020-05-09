@@ -29,9 +29,7 @@ const Results = props => {
       <div id='explanation'>
         <p id='codeExplanation'>
           {/* What the code that you typed does */}
-          The code that you typed didnt do anything.
-          Congratulations.
-          You played yourself.
+         { props.content.meaning }
         </p>
       </div>
 

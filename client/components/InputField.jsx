@@ -15,7 +15,7 @@ const InputField = props => {
         95
       </p>
       
-        < Results />
+        < Results content={ props.content }/>
 
     </div>
   )
