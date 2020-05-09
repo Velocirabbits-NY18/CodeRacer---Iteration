@@ -7,7 +7,9 @@
     "start": "set \"NODE_ENV=production\" && nodemon server/server.js",
     "build": "set \"NODE_ENV=production\" && webpack",
     "dev": "set \"NODE_ENV=development\" && concurrently \"webpack-dev-server --open\" \"nodemon server/server.js\"",
-    "buildmac": "nodemon server/server.js cross-env NODE_ENV=production webpack"
+    "startmac": "node server/server.js",
+    "buildmac": "nodemon server/server.js &cross-env NODE_ENV=production webpack ",
+    "devmac": "nodemon server/server.js & cross-env NODE_ENV=development webpack-dev-server --open"
   },
   "repository": {
     "type": "git",
@@ -20,7 +22,9 @@
   },
   "homepage": "https://github.com/Axolotl-4/CodeRacer#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.6.0",
     "path": "^0.12.7",
     "react": "^16.13.1",
