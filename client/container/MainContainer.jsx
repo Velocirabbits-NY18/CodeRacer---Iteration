@@ -19,7 +19,6 @@ const MainContainer = () => {
       <div className='inputFieldContainer'>
         < InputField />
       </div>
-
     </div>
   )
 }

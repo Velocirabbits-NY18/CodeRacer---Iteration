@@ -11,9 +11,7 @@ class App extends Component {
       return (
         <div className='containers'>
 
-          <div className='login'>  
             < LoginContainer />
-          </div>
 
           <div className='main'>
             < MainContainer />

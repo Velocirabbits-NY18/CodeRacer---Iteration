@@ -1,0 +1,21 @@
+.login{
+    border: 1px solid $cyanTron;
+    display: flex;
+
+}
+
+.signIn{
+    box-sizing: border-box;
+    background-color: $cyanTron;
+    display:flex;
+    color: $basestar;
+    width:180px;
+    height: 60px;
+    margin-right: 0px;
+}
+
+.githubText{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
