@@ -1,0 +1,140 @@
+.mainContainer{
+  width: 100%;
+  height:100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Michroma', sans-serif;
+  
+
+
+  .mainTitle{
+    // TRY TO MAKE THIS METAL REFLECTIVE
+    font-family: 'Faster One', cursive;
+    font-size: 9vw;
+    font-weight: lighter;
+    margin-top: none;
+    background: -webkit-linear-gradient($eightiesYellow 30%,$eightiesOrange,$eightiesPink 70%,$eightiesPurple 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    user-select: none;
+  }
+
+}
+
+
+.navBarContainer{
+  // border: 1px solid $lightblueTron;
+  width:100%;
+  display:flex;
+  justify-content: center;
+
+  .navBar{
+    // border: 1px solid $lightblueTron;
+    width: auto;
+    display: flex;
+
+    #categories{
+      // border: 1px solid $lightblueTron;
+      display:flex;
+      list-style: none;
+      padding:0;
+      margin:0;
+      :nth-child(1){
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+      :nth-last-child(1){
+        border-top-right-radius: 5px;
+        border-bottom-right-radius:5px ;
+      }
+      
+      li{
+        box-sizing: border-box;
+        padding:10px;
+        border: 1px solid $lightblueTron;
+        user-select: none;
+        background-color: $basestar;
+        box-shadow:0px 0px 5px 2px lighten($cyanTron,10%), inset 0px 0px 5px 1px $cyanTron;
+
+
+
+
+        &:hover{
+          cursor: pointer;
+          background-color: lighten($cyanTron,20%);
+          color: $basestar;
+        }
+        &:active{
+          background-color: $eightiesPurple;
+          color: $lightblueTron;
+          box-shadow:0px 0px 5px 2px lighten($eightiesPink,10%), inset 0px 0px 5px 1px $eightiesPink;
+        }
+      }
+
+    }
+  }
+
+
+}
+
+.snippetContainer{
+  box-sizing: border-box;
+  border: 1px solid $lightblueTron;
+  box-shadow:0px 0px 15px 2px lighten($cyanTron,10%), inset 0px 0px 15px 1px $cyanTron ;
+  border-radius: 6px;
+  width:80vw;
+  height: 50vh;
+  min-width:700px;
+  min-height: 500px;
+  margin-top:2em;
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+
+    #snippet{
+      height:100%;
+      width:100%;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      padding-left:20px;
+      padding-right:20px;
+
+      #snippetText{
+        display: flex;
+        user-select: none;
+        pre{
+          font-size:18px;
+        }
+      }
+
+      #noText{
+        text-align: center;
+        font-family: monospace;
+        font-size:20px;
+        user-select: none;
+      }
+    }
+}
+
+.inputContainer{
+  display: flex;
+  padding: 2em;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid $cyanTron;
+  border-radius: 6px;
+  box-shadow:0px 0px 15px 2px lighten($cyanTron,10%), inset 0px 0px 15px 1px $cyanTron ;
+  margin-top: 4em;
+  margin-bottom:4em;
+  width:50vw;
+  min-width: 500px;
+  .resultsContainer{
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+  }
+
+}
