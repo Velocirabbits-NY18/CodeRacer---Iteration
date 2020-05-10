@@ -1,4 +1,79 @@
+.mainContainer{
+  width: 100%;
+  height:100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Michroma', sans-serif;
+
+
+  .mainTitle{
+    // TRY TO MAKE THIS METAL REFLECTIVE
+    font-family: 'Faster One', cursive;
+    font-size: 15vh;
+    font-weight: lighter;
+    margin-top: none;
+    background: -webkit-linear-gradient($eightiesYellow 30%,$eightiesOrange,$eightiesPink 70%,$eightiesPurple 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    user-select: none;
+  }
+
+}
+
 
 .navBarContainer{
-  
+  // border: 1px solid $lightblueTron;
+  width:100%;
+  display:flex;
+  justify-content: center;
+
+  .navBar{
+    // border: 1px solid $lightblueTron;
+    width: auto;
+    display: flex;
+
+    #categories{
+      // border: 1px solid $lightblueTron;
+      display:flex;
+      list-style: none;
+      padding:0;
+      margin:0;
+      :nth-child(1){
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+      :nth-last-child(1){
+        border-top-right-radius: 5px;
+        border-bottom-right-radius:5px ;
+      }
+      
+      li{
+        box-sizing: border-box;
+        padding:10px;
+        border: 1px solid $lightblueTron;
+        user-select: none;
+        background-color: $basestar;
+        box-shadow:0px 0px 5px 2px lighten($cyanTron,10%), inset 0px 0px 5px 1px $cyanTron;
+
+
+
+
+        &:hover{
+          cursor: pointer;
+          background-color: lighten($cyanTron,20%);
+          color: $basestar;
+        }
+        &:active{
+          background-color: $eightiesPurple;
+          color: $lightblueTron;
+          box-shadow:0px 0px 5px 2px lighten($eightiesPink,10%), inset 0px 0px 5px 1px $eightiesPink;
+        }
+      }
+
+    }
+  }
+
+
 }

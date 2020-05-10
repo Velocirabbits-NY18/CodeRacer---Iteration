@@ -44,9 +44,10 @@ class MainContainer extends Component {
   render() {
     return (
       <div className='mainContainer'>
-        <div className='navBarContainer'>
+        <div className="mainTitle"> CODERACER</div>
+
           < NavBar categories ={ this.state.categories } handleClick={ this.handleClick }/>
-        </div>
+   
   
         <div className='codeSnippetContainer'>
           < CodeSnippet content={ this.state.content }/>

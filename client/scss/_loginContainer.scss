@@ -25,6 +25,7 @@
   
   h2{
     text-align:center;
+    user-select: none;
   
   }
   .title{
@@ -32,6 +33,7 @@
     font-family: 'Faster One', cursive;
     font-size: 60px;
     font-weight: lighter;
+    user-select: none;
   }
 
   .signIn{
@@ -63,6 +65,7 @@
     }
 
     .githubButton{
+      user-select: none;
       text-decoration:none;
       width:100%;
       align-items: center;
