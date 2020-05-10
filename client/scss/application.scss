@@ -1,5 +1,6 @@
 @import '_variables';
 @import '_loginContainer';
+@import '_mainContainer';
 
 body{
     background-color: $basestar;
@@ -174,3 +175,7 @@ body{
 // .crt {
 //   animation: textShadow 1.6s infinite;
 // }
+
+.crtSpecial {
+  animation: textShadow 1.6s infinite;
+}

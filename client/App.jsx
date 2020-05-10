@@ -11,11 +11,10 @@ class App extends Component {
       return (
         <div className='containers'>
 
-            < LoginContainer />
-
-          <div className='main'>
+            {/* < LoginContainer /> */}
+              
             < MainContainer />
-          </div>
+        
           
         </div>
       )
