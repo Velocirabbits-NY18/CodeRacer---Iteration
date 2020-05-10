@@ -4,9 +4,11 @@ const secret = 'thisisasecret'
 
 
 sessionController.createSession = (req, res, next) => {
-  token = jwt.sign(res.locals.user, secret, { expiresIn: '1h' })
-  res.cookie(ssid, token, { httpOnly: true })
-  next();
+
+  const token = jwt.sign(res.locals.profile, secret, { expiresIn: '1h' })
+  res.cookie('ssid', token, { httpOnly: true })
+  // console.log("we made a session")
+  return next();
 }
 
 sessionController.verify = (req, res, next) => {

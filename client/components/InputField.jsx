@@ -8,10 +8,19 @@ import Results from './Results.jsx'
 // have a pointer of some sort? State?  and if content[pointer] === e.target.value pointer ++ and if wrong
 // make sure you have to correct your mistake before being allowed to keep going.
 
+// need to reset letterpointer if we choose to choose a new subject, mid-type or we prevent changing stuff when we start the current snippet
+
+
+
 const InputField = props => {
   const [letterPointer, setLetterPointer] = useState(0);
   const [wordPointer, setWordPointer] = useState(0);
   const [wordsTyped, setWordsTyped] = useState('');
+  const [fullString, setFullString] = useState('');
+  const [startTime, setStartTime] = useState(0);
+  const [endTime, setEndTime] = useState(0)
+  const [wordsPerMinute, setWordsPerMinute] = useState(0);
+
 
   const checkForErrors = (letter) => {
     let letterSplit = props.content.content.split('');
@@ -20,6 +29,7 @@ const InputField = props => {
     if (letter === letterSplit[letterPointer]) {
       setWordsTyped(prevString => prevString += letter);
       setLetterPointer(prevCount => prevCount + 1);
+      calculateWPM(e)
       if (letterPointer === letterSplit.length - 1) {
         setLetterPointer(prevCount => prevCount = 0);
       }
@@ -27,21 +37,45 @@ const InputField = props => {
       
     }
     console.log('words typed', wordsTyped);
-    console.log('currentletter', letter);
+    // console.log('currentletter', letter);
     console.log('split letters', letterSplit);
     // console.log('word array', wordArray);
     console.log('letterPointer', letterPointer);
   }
 
+  //establishes start time upon entering into the text box. 
+
+  const startRace = () => {
+    if (startTime === 0) {
+    setStartTime(prevTime => Date.now());
+    console.log("GO! CURRENT TIME IS",startTime)
+    }
+  }
+  
+  
+
+  const calculateWPM = (event) =>{
+    let inputLength = event.target.value.length;
+    let words = inputLength/5;
+    let elapsedTime = Date.now()-startTime;
+    let wordsToTime = words/elapsedTime;
+    let minute = 60000
+    let wpm = (words*minute)/elapsedTime;
+    setWordsPerMinute(prevWPM => (wpm.toFixed(2)))
+  }
+
   return (
     <div className='inputContainer'>
-      <textarea id='textInput' placeholder="This is where people type stuff" onInput={(e)=> (checkForErrors(e.target.value.slice(-1)))} ></textarea>
+      <textarea id='textInput' placeholder="Click Here to Start The CODERACE" 
+                onFocus ={startRace} 
+                onInput={(e)=> { checkForErrors(e.target.value.slice(-1)) }} 
+      ></textarea>
 
       <p id='currentWPM'>
         {/* Current WPM */}
-        95
+        current WPM: {wordsPerMinute}
       </p>
-      
+  
         < Results content={ props.content } />
 
     </div>

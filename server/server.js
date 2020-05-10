@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const cookieparser = require('cookie-parser')
 
-
 const app = express();
 
 const oauthController = require('./controllers/oauthController')
@@ -16,25 +15,41 @@ app.use(cookieparser());
 
 
 
-if(process.env.NODE_ENV === 'production'){
-  app.get('/callback',
-  oauthController.getGithubToken,
-  oauthController.getUser,
-  (req, res) => {
-    res.sendFile(path.join(__dirname, '../index.html'))
-});
+
+
+
+if (process.env.NODE_ENV === 'production') {
 
   app.use('/build', express.static(path.join(__dirname, '../build')));
   // serve index.html on the route '/'
   app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../index.html'));
   });
-}
+}  
+
+app.get('/callback',
+  oauthController.getGithubToken,
+  oauthController.getUser,
+  sessionController.createSession,
+  (req, res) => {
+    if(process.env.NODE_ENV === 'development'){
+      console.log("WE ARE IN DEV ENVIRONMENT")
+      res.redirect("localhost:8080");
+    
+    }
+    else{
+    res.sendFile(path.join(__dirname, '../index.html'))
+    }
+});
+
+app.get('/verify', sessionController.verify, (req, res) => {
+  res.status(200).send();
+})
 
 app.use('/api', apiRouter)
 
-app.use('*',(req, res, next) => {
-    res.status(404).send('YOU TRIED A NON EXISTENT PATH')
+app.use('*', (req, res, next) => {
+  res.status(404).send('YOU TRIED A NON EXISTENT PATH')
 })
 
 app.use(function(err, req, res, next) {
