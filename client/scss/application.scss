@@ -2,9 +2,14 @@
 @import '_loginContainer';
 @import '_mainContainer';
 
+
+
 body{
     background-color: $basestar;
     color: $lightblueTron;
+    text-shadow: -1px 1px 10px $cyanTron;
+    width: 100%;
+    height:100%;
 }
 
 

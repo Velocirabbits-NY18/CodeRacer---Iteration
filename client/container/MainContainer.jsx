@@ -49,13 +49,10 @@ class MainContainer extends Component {
           < NavBar categories ={ this.state.categories } handleClick={ this.handleClick }/>
    
   
-        <div className='codeSnippetContainer'>
           < CodeSnippet content={ this.state.content }/>
-        </div>
   
-        <div className='inputFieldContainer'>
           < InputField content={ this.state.content }/>
-        </div>
+ 
   
       </div>
     )
