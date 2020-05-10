@@ -11,6 +11,7 @@ class MainContainer extends Component {
     this.state = {
       categories: [],
       content: {},
+      currentSnippet: '',
     }
     this.handleClick = this.handleClick.bind(this)
   }
@@ -36,10 +37,6 @@ class MainContainer extends Component {
         this.setState({ categories: categoryArray })
       })
   }
-
-  // componentDidUpdate() {
-  //   console.log('state: ', this.state)
-  // }
 
   render() {
     return (
