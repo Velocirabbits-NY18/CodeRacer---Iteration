@@ -12,9 +12,29 @@ class MainContainer extends Component {
       categories: [],
       content: {},
       currentSnippet: '',
+      inputValue : '',
+      completedWords: [],
+      startRace: false,
     }
     this.handleClick = this.handleClick.bind(this)
+    this.giveInputValue = this.giveInputValue.bind(this)
+    this.giveCompletedWords = this.giveCompletedWords.bind(this)
+    this.startRace = this.startRace.bind(this)
   }
+
+
+  giveInputValue(inputValue){
+    this.setState({inputValue: inputValue})
+  }
+
+  giveCompletedWords(completedWords){
+    this.setState({completedWords: completedWords})
+  }
+
+  startRace(){
+    this.setState({startRace: !this.state.startRace})
+  }
+
 
   handleClick(endpoint) {
     fetch(`/api/${endpoint}`)
@@ -46,9 +66,9 @@ class MainContainer extends Component {
           < NavBar categories ={ this.state.categories } handleClick={ this.handleClick }/>
    
   
-          < CodeSnippet content={ this.state.content }/>
+          < CodeSnippet content={ this.state.content } inputValue = {this.state.inputValue} completedWords = {this.state.completedWords}/>
   
-          < InputField content={ this.state.content }/>
+          < InputField content={ this.state.content } giveCompletedWords = {this.giveCompletedWords} giveInputValue = {this.giveInputValue} startRace = {this.startRace}/>
  
   
       </div>

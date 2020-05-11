@@ -101,19 +101,39 @@
       box-sizing: border-box;
       padding-left:20px;
       padding-right:20px;
+      font-size: 18px;
+    
+
+
+      .green {
+        color:$eightiesCyan;
+      }
+      
+      .red {
+        background-color: $eightiesPink;
+      }
+      
+      .underline {
+        border-bottom: 1px solid $cyanTron;
+      }
+
+      .word{
+        margin-right:8px;
+        font-family: monospace;
+      }
+
+
 
       #snippetText{
         display: flex;
         user-select: none;
-        pre{
-          font-size:18px;
-        }
+        
       }
 
       #noText{
         text-align: center;
         font-family: monospace;
-        font-size:20px;
+        font-size:30px;
         user-select: none;
       }
     }
@@ -131,6 +151,14 @@
   margin-bottom:4em;
   width:50vw;
   min-width: 500px;
+  
+  #textInput{
+    resize: none;
+    width:40%;
+    font-size: 18px;
+    border: 1px solid $lightblueTron;
+    box-shadow: 0px 0px 15px 2px lighten($cyanTron,10%), inset 0px 0px 15px 1px $cyanTron ;
+  }
   .resultsContainer{
     display:flex;
     flex-direction: column;
