@@ -3,8 +3,6 @@ import NavBar from '../components/NavBar.jsx'
 import InputField from '../components/InputField.jsx'
 import CodeSnippet from '../components/CodeSnippet.jsx'
 
-
-
 class MainContainer extends Component {
   constructor(props) {
     super(props);
@@ -14,28 +12,36 @@ class MainContainer extends Component {
       currentSnippet: '',
       inputValue : '',
       completedWords: [],
-      startRace: false,
+      hasRace: false,
+      raceFinished: true,
     }
     this.handleClick = this.handleClick.bind(this)
     this.giveInputValue = this.giveInputValue.bind(this)
     this.giveCompletedWords = this.giveCompletedWords.bind(this)
     this.startRace = this.startRace.bind(this)
+    this.raceFinished = this.raceFinished.bind(this)
   }
 
+  
+  raceFinished() {
+    // console.log("This is our state of the race", this.state.hasRace)
+    this.setState({hasRace: !this.state.hasRace})
+  }
 
-  giveInputValue(inputValue){
+  giveInputValue(inputValue) {
     this.setState({inputValue: inputValue})
   }
 
-  giveCompletedWords(completedWords){
+  giveCompletedWords(completedWords) {
     this.setState({completedWords: completedWords})
   }
 
-  startRace(){
-    this.setState({startRace: !this.state.startRace})
+  startRace() {
+    // console.log("This is our state of the race", this.state.hasRace)
+    this.setState({hasRace: !this.state.hasRace})
   }
 
-
+  // Loads all snippets of the category and randomly chooses one, also has properties other than the actual snippet (its meaning, category, max_time)
   handleClick(endpoint) {
     fetch(`/api/${endpoint}`)
       .then(snippet => snippet.json())
@@ -47,6 +53,7 @@ class MainContainer extends Component {
       })
   }
 
+  // Shows the categories after the component is mounted
   componentDidMount() {
     fetch(`/api/`)
       .then(category => category.json())
@@ -63,58 +70,15 @@ class MainContainer extends Component {
       <div className='mainContainer'>
         <div className="mainTitle"> CODERACER</div>
 
-          < NavBar categories ={ this.state.categories } handleClick={ this.handleClick }/>
-   
+          < NavBar isRaceStarted = {this.state.hasRace} categories ={ this.state.categories } handleClick={ this.handleClick }/>
   
           < CodeSnippet content={ this.state.content } inputValue = {this.state.inputValue} completedWords = {this.state.completedWords}/>
   
           < InputField content={ this.state.content } giveCompletedWords = {this.giveCompletedWords} giveInputValue = {this.giveInputValue} startRace = {this.startRace}/>
  
-  
       </div>
     )
   }
 }
-
-
-
-
-
-
-
-
-// const MainContainer = () => {
-
-//   [categories, setCategories] = useState();
-
-//   const handleClick = (endpoint) => {
-//     fetch(`/api/${endpoint}`)
-//       .then(snippet => console.log(snippet))
-//       // .then()
-//   }
-
-//   useEffect(() => {
-//     fetch(`/api/category`)
-//       .then(category => console.log('categories', category))
-//       .then(setCategories())
-//   })
-
-//   return (
-//     <div className='mainContainer'>
-//       <div className='navBarContainer'>
-//         < NavBar categories ={[]} handleClick={ handleClick }/>
-//       </div>
-
-//       <div className='codeSnippetContainer'>
-//         < CodeSnippet />
-//       </div>
-
-//       <div className='inputFieldContainer'>
-//         < InputField />
-//       </div>
-
-//     </div>
-//   )
-// }
 
 export default MainContainer;

@@ -1,12 +1,13 @@
+//the snippets we hardcoded to populate our DB
 const snippets = [
   [
     html,
-    `<div><h4>My Content Heading</h4><p>My content text</p></div>`,
+    `<div> <h4> My Content Heading </h4> <p> My content text </p> </div>`,
     'Creates a div with a h4 header and a paragraph'
   ],
   [
     sql,
-    `Select * FROM table WHERE id = '3'`,
+    `SELECT * FROM table WHERE id = '3'`,
     `Returns all columns from rows where the id is 3`
   ],
   [
@@ -35,21 +36,21 @@ const snippets = [
   ],
   [
     sql,
-    `INSERT INTO table (col1, col2, col3, col4) 
+    `INSERT INTO table (col1, col2, col3, col4)
      VALUES ($1, $2, $3, $4)
      RETURNING *`,
      `Creates a new entry into selected table with values of the columns determined by the $ variables and then returns what was created`
   ],
-    [
+  [
     react,
-    `const element = <h1>Hello, world</h1>;
+    `const element = <h1> Hello, world </h1>;
     ReactDOM.render(element, document.getElementById('root'));`,
     'Renders an element to the DOM'
   ],
   [
     html,
     `<a href="#"><img itemprop="image" style="height: 90px;"
-    src="http://www.chatbot.chat/assets/images/header-bg_y.jpg" 
+    src="http://www.chatbot.chat/assets/images/header-bg_y.jpg"
     alt="picture">  </a>`,
     'An image that has a link anchored to it'
   ],
@@ -58,19 +59,19 @@ const snippets = [
     `var express = require('express');
     var app = express();
     app.get('/', function (req, res) {
-        res.send('<html><body><h1>Hello World</h1></body></html>');
+      res.send('<html><body><h1>Hello World</h1></body></html>');
     });
     app.post('/submit-data', function (req, res) {
-        res.send('POST Request');
+      res.send('POST Request');
     });
     app.put('/update-data', function (req, res) {
-        res.send('PUT Request');
+      res.send('PUT Request');
     });
     app.delete('/delete-data', function (req, res) {
-        res.send('DELETE Request');
+      res.send('DELETE Request');
     });
     var server = app.listen(5000, function () {
-        console.log('Node server is running..');
+      console.log('Node server is running..');
     });`,
     'Configures routes for express.js web application framework'
   ],
@@ -78,20 +79,18 @@ const snippets = [
     javascript,
     `var now = new Date();
     var dayOfWeek = now.getDay(); // Sunday - Saturday : 0 - 6
-    
     if(dayOfWeek == 5) {
-        document.write("Have a nice weekend!");
+      document.write("Have a nice weekend!");
     } else if(dayOfWeek == 0) {
-        document.write("Have a nice Sunday!");
+      document.write("Have a nice Sunday!");
     } else {
-        document.write("Have a nice day!");
+      document.write("Have a nice day!");
     }`,
     'Multi if else statement for all the days of the week'
-    
   ],
   [
     react,
-    `componentDidMount(){
+    `componentDidMount() {
       fetch(/endpoint)
       .then(res=> res.json())
       .then(json => setState({stateAttribute: json}))
@@ -149,12 +148,12 @@ const snippets = [
   ],
   [
     javascript,
-    `switch(arg){
-      case "hello":{
+    `switch(arg) {
+      case "hello": {
         console.log("hello")
         break
       }
-      case "goodbye":{
+      case "goodbye": {
         console.log("goodbye")
         break
       }
