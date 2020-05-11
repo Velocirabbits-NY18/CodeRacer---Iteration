@@ -55,7 +55,7 @@ const App = () => {
         setIsLoggedIn(loggedIn => loggedIn = true)
         console.log("THIS IS THE STATE", isLoggedIn) 
       } 
-      console.log("we failed to verify the JWT")
+      else console.log("we failed to verify the JWT")
     })
   })
 
