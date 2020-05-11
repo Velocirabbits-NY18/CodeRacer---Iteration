@@ -38,6 +38,20 @@ const InputField = props => {
     }, [delay]);
   }
 
+  const resetState = () => {
+    setStartTime(0)
+    setWordsPerMinute(0)
+    setCompletedWords([])
+    setSnippetSpace([])
+    setSnippetProp('')
+    setRaceStarted(false)
+    setCountDown(5)
+    props.startRace();
+    props.giveCompletedWords([])
+    console.log('You win!')
+  }
+
+
   /// stop player from typing prior to start of race
   const isRaceOn = (e) =>{
     if(!raceStarted){
@@ -46,19 +60,12 @@ const InputField = props => {
   }
 
  
-  const resetState = () => {
-    setStartTime(0)
-    setWordsPerMinute(0)
-    setCompletedWords([])
-    setSnippetSpace([])
-    setSnippetProp('')
-    console.log('You win!')
-  }
+
 
   useEffect(() => {
     if (snippetSpace.length === 0 && props.content.content)
     {
-      setSnippetSpace(space=>space=props.content.content.split(" "))
+      setSnippetSpace(space=>space=props.content.content.trim().split(/[ \t]+/))
       setSnippetProp(snip => snip = props.content.content )
       // document.querySelector('#textInput').value = '';
     }
@@ -68,7 +75,7 @@ const InputField = props => {
     // console.log('snippetSpace', snippetSpace)
     // console.log('split contents', props.content.content.split(' '))
     if (snippetProp != props.content.content){
-      setSnippetSpace(space=>space=props.content.content.split(" "))
+      setSnippetSpace(space=>space=props.content.content.trim().split(/[ \t]+/))
       setSnippetProp(snip => snip = props.content.content )
     }
   }
@@ -86,6 +93,14 @@ const InputField = props => {
 
   
     const currentWord = snippetWords[0]
+    if (currentWord === "" || currentWord === "\n")
+    {
+      let finishedWords = [...completedWords , currentWord]
+        event.target.value = ''
+        setSnippetSpace(remainingWords)
+        setCompletedWords(finishedWords)
+        props.giveCompletedWords(finishedWords)
+    }
     console.log("current word",currentWord)
     if (lastInput === ' ' || lastInput === "\n"){
       console.log("We got a match")
@@ -98,16 +113,20 @@ const InputField = props => {
             event.target.value = ''
             return resetState();
           }
-        //let finishedWords = [...completedWords,currentWord]
+        let finishedWords = [...completedWords , currentWord]
         event.target.value = ''
         setSnippetSpace(remainingWords)
+        setCompletedWords(finishedWords)
+        props.giveCompletedWords(finishedWords)
       }
       else {
         event.target.value = wholeWord.trim()
       }
     }
     else{
+      props.giveInputValue(wholeWord)
       // update wholeWord
+
       //update lastInput
     
     }
@@ -122,6 +141,7 @@ const InputField = props => {
     console.log("GO! CURRENT TIME IS",startTime)
     }
     setRaceStarted(raceStarted => raceStarted = true)
+    props.startRace();
   }
   
 
@@ -129,12 +149,15 @@ const InputField = props => {
   
   const calculateWPM = (event) =>{
     if(raceStarted){
-    let inputLength = event.target.value.length;
+    let inputLength = completedWords.reduce((acc,curr)=>{
+      acc = acc +curr.length
+      return acc
+    },0);
     let words = inputLength/5;
     let elapsedTime = Date.now()-startTime;
     let minute = 60000
     let wpm = (words*minute)/elapsedTime;
-    setWordsPerMinute(prevWPM => prevWPM = (wpm.toFixed(2)))
+    setWordsPerMinute((wpm.toFixed(2)))
     }
   }
 
@@ -169,7 +192,7 @@ const InputField = props => {
 
   let textArea
 
-  if (props.content.content) {
+  if (snippetProp.length) {
     textArea = (<textarea id='textInput' placeholder="Click Here to Start The CODERACE" 
     onFocus ={beginCountdown} 
     onInput={(e)=> { checkForErrors(e);  calculateWPM(e); isRaceOn(e)}} 
