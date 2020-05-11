@@ -71,7 +71,7 @@ userController.setHighScore = (req, res, next) => {
           message: `TOUGH LUCK! YOU'VE DONE BETTER! PERSONAL BEST WPM: ${data.rows[0].highest_wpm} `,
           wpm: data.rows[0].highest_wpm
         }
-        return next()
+        return next();
       }
     }
   })
