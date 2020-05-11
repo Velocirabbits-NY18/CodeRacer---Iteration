@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState, useEffect, useRef } from 'react';
 import Results from './Results.jsx'
 
 
@@ -14,6 +14,36 @@ const InputField = props => {
   const [completedWords, setCompletedWords] = useState([]);
   const [snippetSpace, setSnippetSpace] = useState([]);
   const [snippetProp, setSnippetProp] = useState('');
+  const [countDown, setCountDown] = useState(5);
+  const [raceStarted, setRaceStarted] = useState(false);
+  const [activeCountDown, setActiveCountDown] = useState(false)
+
+  const useInterval = (callback, delay) => {
+    const savedCallback = useRef();
+  
+    // Remember the latest callback.
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+  
+    // Set up the interval.
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (delay !== null) {
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  }
+
+  /// stop player from typing prior to start of race
+  const isRaceOn = (e) =>{
+    if(!raceStarted){
+      e.target.value =''
+    }
+  }
 
  
   const resetState = () => {
@@ -84,31 +114,78 @@ const InputField = props => {
   
   }
 
+  //establishes start time upon termination of the starting clock 
+
   const startRace = () => {
     if (startTime === 0) {
     setStartTime(prevTime => Date.now());
     console.log("GO! CURRENT TIME IS",startTime)
     }
+    setRaceStarted(raceStarted => raceStarted = true)
   }
   
-  
 
+  ///calculates approximate, live wpm
+  
   const calculateWPM = (event) =>{
+    if(raceStarted){
     let inputLength = event.target.value.length;
     let words = inputLength/5;
     let elapsedTime = Date.now()-startTime;
-    let wordsToTime = words/elapsedTime;
     let minute = 60000
     let wpm = (words*minute)/elapsedTime;
-    setWordsPerMinute(prevWPM => (wpm.toFixed(2)))
+    setWordsPerMinute(prevWPM => prevWPM = (wpm.toFixed(2)))
+    }
+  }
+
+  //turns on the "useinterval custom hook to begin the initial countdown"
+
+  const beginCountdown = () => {
+    if(raceStarted || activeCountDown)
+    {
+      return
+    }
+    setActiveCountDown(active => active = true)
+  
+  }
+
+
+
+  useInterval(()=>{
+    if (activeCountDown){
+      console.log(countDown)
+      if(countDown>0){
+      setCountDown(time => time-1)
+      }
+      else{
+        setActiveCountDown(active => active = false)
+        startRace()
+      }
+    }
+
+  },activeCountDown? 1000 :null)
+
+
+
+  let textArea
+
+  if (props.content.content) {
+    textArea = (<textarea id='textInput' placeholder="Click Here to Start The CODERACE" 
+    onFocus ={beginCountdown} 
+    onInput={(e)=> { checkForErrors(e);  calculateWPM(e); isRaceOn(e)}} 
+    ></textarea>)
+  }
+  else {
+    textArea =  (<textarea id='textInput' placeholder="You need a code snippet to race" disabled></textarea>)
   }
 
   return (
     <div className='inputContainer'>
-      <textarea id='textInput' placeholder="Click Here to Start The CODERACE"
+      {/* <textarea id='textInput' placeholder="Click Here to Start The CODERACE" 
                 onFocus ={startRace} 
-                onInput={(e)=> { checkForErrors(e)/*checkForErrors(e.target.value.slice(-1))*/; calculateWPM(e) }} 
-      ></textarea>
+                onInput={(e)=> { checkForErrors(e.target.value.slice(-1));  calculateWPM(e)}} 
+      ></textarea> */}
+      {textArea}
 
       <p id='currentWPM'>
         {/* Current WPM */}
