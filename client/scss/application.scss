@@ -2,7 +2,7 @@
 @import '_loginContainer';
 @import '_mainContainer';
 
-
+// everything is imported into here.
 
 html, body{
   background-color: $basestar;
@@ -26,6 +26,7 @@ html, body{
   height:100%
 }
 
+// animation for the flicker quality
 
 @keyframes flicker {
   0% {
@@ -187,6 +188,9 @@ html, body{
 // .crt {
 //   animation: textShadow 1.6s infinite;
 // }
+
+//decoupled the colour diffusion from the crt base class since it hurts the eyes depending on where it is.
+// add or remove as you wish from dives.
 
 .crtSpecial {
   animation: textShadow 1.6s infinite;

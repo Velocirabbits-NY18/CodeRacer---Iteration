@@ -2,6 +2,8 @@ const db = require('../models/snippetModel');
 
 const snippetController = {};
 
+// query selecting from our SQL databasse
+// the SELECT DISTINCT make it so only unique categories are returned
 snippetController.getCategories = (req, res, next) => {
   const query = 'SELECT DISTINCT category FROM snippet'
   db.query(query, (err, data) => {
@@ -13,6 +15,7 @@ snippetController.getCategories = (req, res, next) => {
   })
 };
 
+//gets all of the snippets from our database that matches the clicked category
 snippetController.getSnippet = (req, res, next) => {
   let search = req.params.search;
   // console.log('we are getting the snippet with', )
@@ -28,10 +31,10 @@ snippetController.getSnippet = (req, res, next) => {
   })
 };
 
-// snippetController.getHighestWPM = (req, res, next) => {
-//   let search = req.params.search;
-//   const query = `SELECT `
-// }
+//populates the table (snippet) with our entries to the SQL database
+//these were hard coded and added to the database and this function is no longer nessecary
+//after populating the database
+//feel free to use to populate the database with more snippets or turn it into an official route on the website.
 
 snippetController.createDatabase = async (req, res, next) => {
   const query = `INSERT INTO snippet (category, content, meaning, max_time) 
@@ -48,19 +51,8 @@ snippetController.createDatabase = async (req, res, next) => {
   Promise.all(promiseArray).then(res => next())
 }
 
-// HTML SQL JavaScript React Express
-// category, content, meaning
-const html = "HTML";
-const sql = "SQL";
-const javascript = "JavaScript";
-const react = "React";
-const express = "Express";
 
-
-const snippets = [
-
-];
-
+//schema for our snippet table
 /*
 CREATE TABLE snippet (
   snippet_id     SERIAL PRIMARY KEY,
@@ -70,6 +62,24 @@ CREATE TABLE snippet (
   max_time       INT
 );
 */
+// HTML SQL JavaScript React Express
+// category, content, meaning
+// const html = "HTML";
+// const sql = "SQL";
+// const javascript = "JavaScript";
+// const react = "React";
+// const express = "Express";
+
+
+
+
+// Add snippets here in the line65 format or follow snippet.txt, which is where we stored our entries for backup
+// You can only add 5 at a time because we're on the free turtle plan on elephant SQL
+// After the array is filled, send a postman post request to 8080/api/backdoor and it'll show up on the DB
+const snippets = [
+
+];
+
 
 
 

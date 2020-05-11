@@ -49,7 +49,29 @@
         border-top-right-radius: 5px;
         border-bottom-right-radius:5px ;
       }
-      
+
+      .disabled{
+        background-color: $deepblueTron;
+        color: $basestar;
+        box-shadow: none;
+        text-shadow: none;
+        border: 1px solid $basestar;
+        &:hover{
+          background-color: $deepblueTron;
+          color: $basestar;
+          box-shadow: none;
+          text-shadow: none;
+          border: 1px solid $basestar;
+          cursor: default;
+        }
+        &:active{
+          background-color: $deepblueTron;
+          color: $basestar;
+          box-shadow: none;
+          text-shadow: none;
+          border: 1px solid $basestar;
+      }
+    }
       li{
         box-sizing: border-box;
         padding:10px;
@@ -57,8 +79,6 @@
         user-select: none;
         background-color: $basestar;
         box-shadow:0px 0px 5px 2px lighten($cyanTron,10%), inset 0px 0px 5px 1px $cyanTron;
-
-
 
 
         &:hover{
@@ -151,6 +171,14 @@
   margin-bottom:4em;
   width:50vw;
   min-width: 500px;
+
+  #timer{
+    box-sizing: border-box;
+    width: auto;
+    height: 2em;
+    margin-bottom: 2em;
+
+  }
   
   #textInput{
     resize: none;
@@ -163,6 +191,10 @@
     display:flex;
     flex-direction: column;
     align-items:center;
+
+      #explanation{
+      text-align: center
+    }
   }
 
 }
