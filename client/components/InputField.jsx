@@ -4,10 +4,6 @@ import Results from './Results.jsx'
 
 // calculatewpm = (typedCharacters/5) / endTime-startTime          *          60seconds / endTime-startTime
 
-
-
-
-
 const InputField = props => {
   const [startTime, setStartTime] = useState(0);
   const [wordsPerMinute, setWordsPerMinute] = useState(0);
