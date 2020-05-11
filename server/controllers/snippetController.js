@@ -28,6 +28,11 @@ snippetController.getSnippet = (req, res, next) => {
   })
 };
 
+// snippetController.getHighestWPM = (req, res, next) => {
+//   let search = req.params.search;
+//   const query = `SELECT `
+// }
+
 snippetController.createDatabase = async (req, res, next) => {
   const query = `INSERT INTO snippet (category, content, meaning, max_time) 
                  VALUES ($1, $2, $3, $4)
