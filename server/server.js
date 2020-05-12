@@ -27,6 +27,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.get('/callback/google', (req, res) => {
+  console.log('got a response from google');
   res.send(200);
 });
 
