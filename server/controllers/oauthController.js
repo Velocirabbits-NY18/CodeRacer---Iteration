@@ -1,12 +1,6 @@
 const fetch = require('node-fetch');
 const oauthController = {};
 
-const googleOAuth = {
-  client_id:
-    '42848154155-tqj1eajsrihntd2s8ov1bbbrco1m1fpq.apps.googleusercontent.com',
-  client_secret: 'jnf - F3IrjV6TsXhrLttl_zfW',
-};
-
 // generic oauth flow for github access token
 oauthController.getGithubToken = (req, res, next) => {
   // console.log("GETTING THE TOKEN")
