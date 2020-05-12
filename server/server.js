@@ -28,7 +28,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.get('/callback/google', googleController.setCredentials, (req, res) => {
-  console.log(process.env.NODE_ENV);
   if (
     process.env.NODE_ENV === 'development' ||
     process.env.NODE_ENV === undefined
@@ -36,7 +35,6 @@ app.get('/callback/google', googleController.setCredentials, (req, res) => {
     // console.log("WE ARE IN DEV ENVIRONMENT")
     res.redirect('http://localhost:8080');
   } else {
-    console.log('maybe here?');
     res.sendFile(path.join(__dirname, '../index.html'));
   }
 });
@@ -48,7 +46,10 @@ app.get(
   oauthController.getUser,
   sessionController.createSession,
   (req, res) => {
-    if (process.env.NODE_ENV === 'development') {
+    if (
+      process.env.NODE_ENV === 'development' ||
+      process.env.NODE_ENV === undefined
+    ) {
       // console.log("WE ARE IN DEV ENVIRONMENT")
       res.redirect('localhost:8080');
     } else {
