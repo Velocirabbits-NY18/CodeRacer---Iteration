@@ -5,6 +5,7 @@ const cookieparser = require('cookie-parser');
 const app = express();
 
 const oauthController = require('./controllers/oauthController');
+const { googleController } = require('./controllers/googleController');
 const sessionController = require('./controllers/sessionController');
 const cookieController = require('./controllers/cookieController');
 const userController = require('./controllers/userController');
@@ -26,9 +27,18 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.get('/callback/google', (req, res) => {
-  console.log('got a response from google');
-  res.send(200);
+app.get('/callback/google', googleController.setCredentials, (req, res) => {
+  console.log(process.env.NODE_ENV);
+  if (
+    process.env.NODE_ENV === 'development' ||
+    process.env.NODE_ENV === undefined
+  ) {
+    // console.log("WE ARE IN DEV ENVIRONMENT")
+    res.redirect('http://localhost:8080');
+  } else {
+    console.log('maybe here?');
+    res.sendFile(path.join(__dirname, '../index.html'));
+  }
 });
 
 // Oauth flow for github
