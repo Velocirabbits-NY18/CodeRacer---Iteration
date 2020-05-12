@@ -13,6 +13,14 @@ const Login = () => {
         <div className="signIn">
           <a
             className="githubButton"
+            href="https://accounts.google.com/signin/oauth/oauthchooseaccount?access_type=offline&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&response_type=code&client_id=42848154155-tqj1eajsrihntd2s8ov1bbbrco1m1fpq.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback%2Fgoogle&o2v=2&as=LP-o1RCGItXx1OpJeLJTEw&flowName=GeneralOAuthFlow"
+          >
+            <span> Log into Google</span>
+          </a>
+        </div>
+        <div className="signIn">
+          <a
+            className="githubButton"
             href="https://github.com/login/oauth/authorize?scope=read:user&client_id=3b5392180e51bf2368e3&redirect_uri=http://localhost:3000/callback"
           >
             <svg
