@@ -62,7 +62,12 @@ class MainContainer extends Component {
         const categoryArray = response.map((element) => {
           return element.category;
         });
-        this.setState({ categories: categoryArray });
+        this.setState({
+          categories: [
+            ...categoryArray,
+            Cookies.get('githubRepos') ? 'My GitHub' : null,
+          ],
+        });
       });
   }
 

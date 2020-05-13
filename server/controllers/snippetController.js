@@ -17,7 +17,8 @@ snippetController.getCategories = (req, res, next) => {
 
 // gets all of the snippets from our database that matches the clicked category
 snippetController.getSnippet = (req, res, next) => {
-  let search = req.params.search;
+  const { search } = req.params;
+  if (search === 'github') return next();
   // console.log('we are getting the snippet with', )
   const query = `SELECT * FROM snippet WHERE category = '${search}'`;
   db.query(query, (err, data) => {
