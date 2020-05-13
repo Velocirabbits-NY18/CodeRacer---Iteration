@@ -1,16 +1,13 @@
 const express = require('express');
 const path = require('path');
 const cookieparser = require('cookie-parser');
-
-// Twitter Oauth
 const passport = require('passport');
-const TwitterStrategy = require('passport-twitter');
 
 const app = express();
 
 const oauthController = require('./controllers/oauthController');
 const { googleController } = require('./controllers/googleController');
-const twitterController = require('./controllers/twitterController');
+// const twitterController = require('./controllers/twitterController');
 const sessionController = require('./controllers/sessionController');
 const cookieController = require('./controllers/cookieController');
 const userController = require('./controllers/userController');
@@ -19,20 +16,6 @@ const apiRouter = require('./routes/api');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieparser());
-
-// Twitter Oauth passport
-passport.use(
-  new TwitterStrategy(
-    {
-      consumerKey: 'P4zEfakB20HeuY1q20YX95oOC',
-      consumerSecret: 'AseP6nvy43ThIWLpyTyyGDzxTVwJ4dbGjB6Kgl6XUkzusMY1uk',
-      callbackUrl: 'http://localhost:3000/twitter/callback',
-    },
-    function (token, tokenSecret, profile, cb) {
-      return cb(null, profile);
-    }
-  )
-);
 
 // boiler plate to get everything working.
 
@@ -78,9 +61,9 @@ app.get(
 );
 
 // Oauth flow for Twitter
-app.get('/auth/twitter', passport.authenticate('twitter'));
+app.get('/twitter', passport.authenticate('twitter'));
 app.get(
-  '/auth/twitter/callback',
+  '/twitter/callback',
   passport.authenticate('twitter', { failureRedirect: '/' }),
   (req, res) => {
     // have to figure out session
