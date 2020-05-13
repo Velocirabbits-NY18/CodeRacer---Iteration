@@ -65,7 +65,7 @@ class MainContainer extends Component {
         this.setState({
           categories: [
             ...categoryArray,
-            Cookies.get('githubRepos') ? 'My GitHub' : null,
+            Cookies.get('githubRepos') !== undefined ? 'My GitHub' : null,
           ],
         });
       });

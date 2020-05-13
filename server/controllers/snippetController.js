@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 const db = require('../models/snippetModel');
 
 const snippetController = {};
@@ -17,8 +19,6 @@ snippetController.getCategories = (req, res, next) => {
 
 // gets all of the snippets from our database that matches the clicked category
 snippetController.getSnippet = (req, res, next) => {
-  const { search } = req.params;
-  if (search === 'github') return next();
   // console.log('we are getting the snippet with', )
   const query = `SELECT * FROM snippet WHERE category = '${search}'`;
   db.query(query, (err, data) => {
@@ -30,6 +30,41 @@ snippetController.getSnippet = (req, res, next) => {
     res.locals.snippet = data.rows;
     return next();
   });
+};
+
+snippetController.getGitHubCode = async (req, res, next) => {
+  try {
+    const { githubRepos } = req.cookies;
+    const results = await axios(githubRepos, {
+      headers: {
+        Authorization: `token ${req.cookies.githubAccessToken}`,
+      },
+    });
+    const repos = results.data.map((repo) => repo.contents_url);
+    console.log(repos);
+    const repoData = await Promise.all(
+      repos.map((repoUrl) => {
+        const sliceUrl = repoUrl.slice(0, repoUrl.indexOf('{+path}') - 1);
+        console.log(sliceUrl);
+        try {
+          axios(sliceUrl, {
+            headers: {
+              Authorization: `token ${req.cookies.githubAccessToken}`,
+            },
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      })
+    );
+    console.log(repoData);
+  } catch (err) {
+    next({
+      log: `Error in getGitHubCode: ${err}`,
+      status: 500,
+      message: 'Couldnt get the users github code',
+    });
+  }
 };
 
 // populates the table (snippet) with our entries to the SQL database

@@ -10,7 +10,12 @@ router.get('/', snippetController.getCategories, (req, res, next) => {
 });
 
 // when clicking a category, gets a random snippet from that category and puts it into the codesnippet
-router.get('/:search', snippetController.getSnippet, (req, res, next) =>
+
+router.get('/My%20GitHub', snippetController.getGitHubCode, (req, res) => {
+  res.redirect('/');
+});
+
+router.get('/:search', snippetController.getSnippet, (req, res) =>
   res.status(200).json(res.locals.snippet)
 );
 

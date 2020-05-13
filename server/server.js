@@ -11,7 +11,7 @@ const io = require('socket.io')(server); // io has to have server, so we need ap
 io.on('connection', (socket) => {
   // console.log('IS THIS WORKING', socket);
   console.log('socketid is: ', socket.id);
-})
+});
 
 const oauthController = require('./controllers/oauthController');
 const { googleController } = require('./controllers/googleController');
@@ -65,7 +65,7 @@ app.get(
       process.env.NODE_ENV === undefined
     ) {
       // console.log("WE ARE IN DEV ENVIRONMENT")
-      res.redirect('localhost:8080');
+      res.redirect('http://localhost:8080');
     } else {
       res.sendFile(path.join(__dirname, '../index.html'));
     }
