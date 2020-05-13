@@ -1,15 +1,23 @@
 const express = require('express');
 const path = require('path');
 const cookieparser = require('cookie-parser');
-
+const PORT = 3000;
 const app = express();
+
+// const server = require('http').Server(app); -> this is creating another server so do not need these
+const server = app.listen(PORT, () => console.log('listening on port 3000')); // one server created from app.listen instance
+const io = require('socket.io')(server); // io has to have server, so we need app.listen beforehand
+
+io.on('connection', (socket) => {
+  // console.log('IS THIS WORKING', socket);
+  console.log('socketid is: ', socket.id);
+})
 
 const oauthController = require('./controllers/oauthController');
 const { googleController } = require('./controllers/googleController');
 const sessionController = require('./controllers/sessionController');
 const cookieController = require('./controllers/cookieController');
 const userController = require('./controllers/userController');
-const PORT = 3000;
 const apiRouter = require('./routes/api');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -92,5 +100,4 @@ app.use(function (err, req, res, next) {
   res.status(errorObj.status).send(JSON.stringify(errorObj.message));
 });
 
-app.listen(PORT, () => console.log('listening on port 3000'));
 module.exports = app;
