@@ -42,7 +42,7 @@ GoogleController.getEmail = async (req, res, next) => {
       personFields: ['emailAddresses', 'names'],
     });
     const email = result.data.emailAddresses[0].value;
-    const name = result.data.names.displayName;
+    const name = result.data.names[0].displayName;
     console.log(result.data);
     res.locals.profile = { email, name };
     next();
