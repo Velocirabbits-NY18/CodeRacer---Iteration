@@ -39,10 +39,12 @@ GoogleController.getEmail = async (req, res, next) => {
     const { people } = res.locals;
     const result = await people.people.get({
       resourceName: 'people/me',
-      personFields: 'emailAddresses',
+      personFields: ['emailAddresses', 'names'],
     });
     const email = result.data.emailAddresses[0].value;
-    res.locals.profile = { email };
+    const name = result.data.names.displayName;
+    console.log(result.data);
+    res.locals.profile = { email, name };
     next();
   } catch (err) {
     console.log(err);

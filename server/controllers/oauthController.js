@@ -35,7 +35,7 @@ oauthController.getUser = (req, res, next) => {
   })
     .then((res) => res.json())
     .then((result) => {
-      // console.log('We got our User:', result);
+      console.log('We got our User:', result);
       res.locals.profile = result;
       return next();
     });
