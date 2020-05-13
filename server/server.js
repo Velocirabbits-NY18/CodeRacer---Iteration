@@ -100,6 +100,10 @@ app.get(
   twitterController.getToken,
   sessionController.createSession,
   (req, res) => {
+    // res.redirect('http://localhost:8080/');
+    // console.log('process Node_ENV: ', process.env.Node_ENV);
+    res.redirect('http://localhost:8080/');
+    // my Node_ENV is undefined
     // if (
     //   process.env.NODE_ENV === 'development' ||
     //   process.env.NODE_ENV === undefined
