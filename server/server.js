@@ -1,13 +1,17 @@
 const express = require('express');
 const path = require('path');
 const cookieparser = require('cookie-parser');
+
+// Authentication packages
 const passport = require('passport');
+const session = require('express-session');
 
 const app = express();
 
 const oauthController = require('./controllers/oauthController');
 const { googleController } = require('./controllers/googleController');
 // const twitterController = require('./controllers/twitterController');
+const twitterPassport = require('./passport-config/passport');
 const sessionController = require('./controllers/sessionController');
 const cookieController = require('./controllers/cookieController');
 const userController = require('./controllers/userController');
@@ -16,7 +20,19 @@ const apiRouter = require('./routes/api');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieparser());
-
+// Authentication
+app.use(
+  session({
+    // connect.sid
+    secret: 'keyboard cat', // like hash function for cookie
+    resave: false, // if true would resave even when change isn't made to sessioon
+    saveUninitialized: false, // only creating cookie/session for logged in user
+    cookie: { secure: false }, // http not https
+  })
+);
+// has to be under express sessions middleware
+app.use(passport.initialize()); // initialize user session
+app.use(passport.session()); // store user information in session
 // boiler plate to get everything working.
 
 // production variable to ensure /build file is used when in production mode
@@ -61,21 +77,31 @@ app.get(
 );
 
 // // Oauth flow for Twitter
-// app.get('/twitter', (req, res) => {
-//   console.log('Twitter is amazing');
-//   res.status(200);
-// });
-// app.get(
-//   '/twitter/callback',
-//   passport.authenticate('twitter', { failureRedirect: '/' }),
-//   (req, res) => {
-//     // have to figure out session
-//     console.log('Authenticated');
-//     console.log(res.locals);
-//     // successfull authentication
-//     res.sendFile(path.join(__dirname, '../index.html'));
-//   }
-// );
+app.get('/twitter', twitterPassport.strategy, passport.authenticate('twitter'));
+app.get(
+  '/twitter/callback',
+  passport.authenticate('twitter', { failureRedirect: '/' }),
+  (req, res, next) => {
+    // have to figure out session
+    console.log('Authenticated');
+    console.log(
+      'token: ',
+      req.query.oauth_token,
+      'verifier: ',
+      req.query.oauth_verifier
+    );
+    // successfull authentication
+    if (
+      process.env.NODE_ENV === 'development' ||
+      process.env.NODE_ENV === undefined
+    ) {
+      // console.log("WE ARE IN DEV ENVIRONMENT")
+      res.redirect('http://localhost:8080');
+    } else {
+      res.sendFile(path.join(__dirname, '../index.html'));
+    }
+  }
+);
 
 app.get('/test', sessionController.verify, (req, res) => {
   console.log('This is a test');

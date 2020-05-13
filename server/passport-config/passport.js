@@ -1,5 +1,5 @@
 const twitterAuth = {
-  strategy() {
+  strategy(req, res, next) {
     // Twitter Oauth
     const passport = require('passport');
     const TwitterStrategy = require('passport-twitter');
@@ -9,9 +9,10 @@ const twitterAuth = {
     passport.use(
       new TwitterStrategy(
         {
-          consumerKey: keys.clientKey,
-          consumerSecret: keys.clientSecret,
+          consumerKey: 'P4zEfakB20HeuY1q20YX95oOC',
+          consumerSecret: 'AseP6nvy43ThIWLpyTyyGDzxTVwJ4dbGjB6Kgl6XUkzusMY1uk',
           callbackUrl: 'http://localhost:3000/twitter/callback',
+          proxy: true,
         },
         (token, tokenSecret, profile, cb) => {
           // callback
@@ -19,6 +20,14 @@ const twitterAuth = {
         }
       )
     );
+    passport.serializeUser((user, callback) => {
+      callback(null, user);
+    });
+    passport.deserializeUser((user, callback) => {
+      callback(null, user);
+    });
+    console.log('Leaving Twitter Strategy');
+    return next();
   },
 };
 

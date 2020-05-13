@@ -10,7 +10,6 @@ module.exports = {
       '/api': 'http://localhost:3000',
       '/verify': 'http://localhost:3000',
       '/twitter': 'http://localhost:3000',
-      '/test': 'http://localhost:3000',
     },
     port: 8080,
     hot: true,
