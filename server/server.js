@@ -60,19 +60,27 @@ app.get(
   }
 );
 
-// Oauth flow for Twitter
-app.get('/twitter', passport.authenticate('twitter'));
-app.get(
-  '/twitter/callback',
-  passport.authenticate('twitter', { failureRedirect: '/' }),
-  (req, res) => {
-    // have to figure out session
-    console.log('Authenticated');
-    console.log(res.locals);
-    // successfull authentication
-    res.sendFile(path.join(__dirname, '../index.html'));
-  }
-);
+// // Oauth flow for Twitter
+// app.get('/twitter', (req, res) => {
+//   console.log('Twitter is amazing');
+//   res.status(200);
+// });
+// app.get(
+//   '/twitter/callback',
+//   passport.authenticate('twitter', { failureRedirect: '/' }),
+//   (req, res) => {
+//     // have to figure out session
+//     console.log('Authenticated');
+//     console.log(res.locals);
+//     // successfull authentication
+//     res.sendFile(path.join(__dirname, '../index.html'));
+//   }
+// );
+
+app.get('/test', sessionController.verify, (req, res) => {
+  console.log('This is a test');
+  res.send(200);
+});
 
 // end of production mode stuff.
 

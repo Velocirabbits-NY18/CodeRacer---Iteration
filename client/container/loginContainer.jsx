@@ -19,7 +19,10 @@ const Login = () => {
           </a>
         </div>
         <div className="signIn">
-          <a className="twitterButton" href="#">
+          <a
+            className="twitterButton"
+            href="redirect_uri=http://localhost:3000/twitter"
+          >
             <svg
               className="twitterIcon"
               height="46px"
