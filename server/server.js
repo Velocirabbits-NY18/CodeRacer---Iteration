@@ -1,6 +1,10 @@
 const express = require('express');
 const path = require('path');
 const cookieparser = require('cookie-parser');
+
+// Authentication packages
+const session = require('express-session');
+
 const PORT = 3000;
 const app = express();
 
@@ -11,10 +15,12 @@ const io = require('socket.io')(server); // io has to have server, so we need ap
 io.on('connection', (socket) => {
   // console.log('IS THIS WORKING', socket);
   console.log('socketid is: ', socket.id);
-})
+});
 
 const oauthController = require('./controllers/oauthController');
 const { googleController } = require('./controllers/googleController');
+const twitterController = require('./controllers/twitterController');
+const twitterPassport = require('./passport-config/passport');
 const sessionController = require('./controllers/sessionController');
 const cookieController = require('./controllers/cookieController');
 const userController = require('./controllers/userController');
@@ -22,7 +28,20 @@ const apiRouter = require('./routes/api');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieparser());
-
+// Authentication
+const passport = require('./passport-config/passport');
+app.use(
+  session({
+    // connect.sid
+    secret: 'keyboard cat', // like hash function for cookie
+    resave: false, // if true would resave even when change isn't made to sessioon
+    saveUninitialized: false, // only creating cookie/session for logged in user
+    cookie: { secure: false }, // http not https
+  })
+);
+// has to be under express sessions middleware
+app.use(passport.initialize()); // initialize user session
+app.use(passport.session()); // store user information in session
 // boiler plate to get everything working.
 
 // production variable to ensure /build file is used when in production mode
@@ -71,6 +90,38 @@ app.get(
     }
   }
 );
+
+// // Oauth flow for Twitter
+app.get(
+  '/twitter/callback',
+  passport.authenticate('twitter', {
+    failureRedirect: '/',
+  }),
+  twitterController.getToken,
+  sessionController.createSession,
+  (req, res) => {
+    // res.redirect('http://localhost:8080/');
+    // console.log('process Node_ENV: ', process.env.Node_ENV);
+    res.redirect('http://localhost:8080/');
+    // my Node_ENV is undefined
+    // if (
+    //   process.env.NODE_ENV === 'development' ||
+    //   process.env.NODE_ENV === undefined
+    // ) {
+    //   // console.log("WE ARE IN DEV ENVIRONMENT")
+    //   res.redirect('localhost:8080');
+    // } else {
+    //   res.sendFile(path.join(__dirname, '../index.html'));
+    // }
+  }
+);
+
+app.get('/twitter', passport.authenticate('twitter'));
+
+app.get('/test', sessionController.verify, (req, res) => {
+  console.log('This is a test');
+  res.send(200);
+});
 
 // end of production mode stuff.
 
