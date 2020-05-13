@@ -13,8 +13,6 @@ const url = oauth2Client.generateAuthUrl({
   scope: ['email', 'profile'],
 });
 
-console.log('googleController Url: ', url);
-
 GoogleController.setCredentials = async (req, res, next) => {
   try {
     const { code } = req.query;
@@ -43,7 +41,6 @@ GoogleController.getEmail = async (req, res, next) => {
     });
     const email = result.data.emailAddresses[0].value;
     const name = result.data.names[0].displayName;
-    console.log(result.data);
     res.locals.profile = { email, name };
     next();
   } catch (err) {
