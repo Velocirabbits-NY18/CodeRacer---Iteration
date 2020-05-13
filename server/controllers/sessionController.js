@@ -6,6 +6,7 @@ const db = require('../models/snippetModel');
 //creates the jwt and saves it to our cookie
 sessionController.createSession = (req, res, next) => {
   const token = jwt.sign(res.locals.profile, secret, { expiresIn: '1h' });
+  res.cookie('name', res.locals.profile.name);
   res.cookie('ssid', token, { httpOnly: true });
   // console.log("we made a session")
   return next();
