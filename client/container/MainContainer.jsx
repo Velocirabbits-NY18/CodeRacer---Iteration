@@ -1,6 +1,7 @@
 /* eslint-disable */ 
 
 import React, { Component, useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 import NavBar from '../components/NavBar.jsx';
 import InputField from '../components/InputField.jsx';
 import CodeSnippet from '../components/CodeSnippet.jsx';
@@ -80,6 +81,12 @@ class MainContainer extends Component {
     return (
       <div className="mainContainer">
         <div className="mainTitle"> CODERACER</div>
+        <center>
+          Hello, <br />
+          {Cookies.get('name')}
+          <br />
+          <br />
+        </center>
 
         <NavBar
           isRaceStarted={this.state.hasRace}

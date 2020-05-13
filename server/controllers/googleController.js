@@ -1,4 +1,5 @@
 const { google } = require('googleapis');
+const fetch = require('node-fetch');
 
 const GoogleController = {};
 const oauth2Client = new google.auth.OAuth2(
@@ -9,19 +10,42 @@ const oauth2Client = new google.auth.OAuth2(
 
 const url = oauth2Client.generateAuthUrl({
   access_type: 'offline',
-  scope: 'https://www.googleapis.com/auth/userinfo.email',
+  scope: ['email', 'profile'],
 });
 
-console.log('googleController Url: ', url);
-
 GoogleController.setCredentials = async (req, res, next) => {
-  const { code } = req.query;
-  const { tokens } = await oauth2Client.getToken(code);
+  try {
+    const { code } = req.query;
+    const { tokens } = await oauth2Client.getToken(code);
+    oauth2Client.setCredentials(tokens);
 
-  console.log('google tokens: ', tokens);
-  // oauth2Client.setCredentials(tokens);
-  // onsole.log('oauth2Client credentials', oauth2Client.credentials);
-  next();
+    const people = await google.people({
+      version: 'v1',
+      auth: oauth2Client,
+    });
+
+    res.locals.people = people;
+
+    next();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+GoogleController.getEmail = async (req, res, next) => {
+  try {
+    const { people } = res.locals;
+    const result = await people.people.get({
+      resourceName: 'people/me',
+      personFields: ['emailAddresses', 'names'],
+    });
+    const email = result.data.emailAddresses[0].value;
+    const name = result.data.names[0].displayName;
+    res.locals.profile = { email, name };
+    next();
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports = { googleController: GoogleController, url };
