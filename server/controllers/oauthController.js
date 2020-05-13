@@ -35,8 +35,8 @@ oauthController.getUser = (req, res, next) => {
   })
     .then((res) => res.json())
     .then((result) => {
-      // console.log('We got our User:', result);
       res.locals.profile = result;
+      res.cookie('githubRepos', result.repos_url);
       return next();
     });
 };
