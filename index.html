@@ -15,10 +15,15 @@
       href="https://fonts.googleapis.com/css2?family=Turret+Road:wght@500&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
   </head>
   <body>
     <div id="root" class="crt"></div>
 
     <script src="build/bundle.js"></script>
+    <!-- <script src="/socket.io/socket.io.js"></script> -->
+    <script>
+      const socket = io.connect('http://localhost:3000');
+    </script>
   </body>
 </html>
