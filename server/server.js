@@ -35,17 +35,23 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.get('/callback/google', googleController.setCredentials, (req, res) => {
-  if (
-    process.env.NODE_ENV === 'development' ||
-    process.env.NODE_ENV === undefined
-  ) {
-    // console.log("WE ARE IN DEV ENVIRONMENT")
-    res.redirect('http://localhost:8080');
-  } else {
-    res.sendFile(path.join(__dirname, '../index.html'));
+app.get(
+  '/callback/google',
+  googleController.setCredentials,
+  googleController.getEmail,
+  sessionController.createSession,
+  (req, res) => {
+    if (
+      process.env.NODE_ENV === 'development' ||
+      process.env.NODE_ENV === undefined
+    ) {
+      // console.log("WE ARE IN DEV ENVIRONMENT")
+      res.redirect('http://localhost:8080');
+    } else {
+      res.sendFile(path.join(__dirname, '../index.html'));
+    }
   }
-});
+);
 
 // Oauth flow for github
 app.get(
