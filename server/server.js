@@ -15,6 +15,7 @@ io.on('connection', (socket) => {
   console.log('socketid is: ', socket.id);
   socket.on('gameFinished', data => {
     console.log('Socket data: ', data);
+    io.emit('newScores', data);
   })
 })
 

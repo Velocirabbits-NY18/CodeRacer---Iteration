@@ -49,6 +49,9 @@ const InputField = props => {
     // Sent to userController
   const resetState = () => {
     console.log("this is our final", wordsPerMinute);
+    
+    socket.emit('gameFinished', { name: props.name, score: wordsPerMinute });
+
     setStartTime(0);
     setCompletedWords([]);
     setSnippetSpace([]);
@@ -151,7 +154,7 @@ const InputField = props => {
 
           // send a message to socket from here, once game is finished
           // emitResultToSocket()
-          socket.emit('gameFinished', { name: props.name, score: wordsPerMinute });
+          // socket.emit('gameFinished', { name: props.name, score: wordsPerMinute });
 
 
           return resetState();

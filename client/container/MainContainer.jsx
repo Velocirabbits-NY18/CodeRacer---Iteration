@@ -18,7 +18,6 @@ class MainContainer extends Component {
       hasRace: false,
       raceFinished: true,
       name: ''
-      // leaderboard: []
     };
     this.handleClick = this.handleClick.bind(this);
     this.giveInputValue = this.giveInputValue.bind(this);
@@ -94,15 +93,17 @@ class MainContainer extends Component {
           completedWords={this.state.completedWords}
         />
 
-        <InputField
-          content={this.state.content}
-          giveCompletedWords={this.giveCompletedWords}
-          giveInputValue={this.giveInputValue}
-          startRace={this.startRace}
-          name={this.state.name}
-        />
+        <div className="inputAndLeaderboardBox">
+          <InputField
+            content={this.state.content}
+            giveCompletedWords={this.giveCompletedWords}
+            giveInputValue={this.giveInputValue}
+            startRace={this.startRace}
+            name={this.state.name}
+          />
 
-        {/* <Leaderboard score={this.state.leaderboard} /> */}
+          <Leaderboard />
+        </div>
  
       </div>
     );
