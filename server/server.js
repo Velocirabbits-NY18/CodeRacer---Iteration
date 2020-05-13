@@ -1,12 +1,25 @@
 const express = require('express');
 const path = require('path');
 const cookieparser = require('cookie-parser');
+<<<<<<< HEAD
 
 // Authentication packages
 const passport = require('passport');
 const session = require('express-session');
 
+=======
+const PORT = 3000;
+>>>>>>> master
 const app = express();
+
+// const server = require('http').Server(app); -> this is creating another server so do not need these
+const server = app.listen(PORT, () => console.log('listening on port 3000')); // one server created from app.listen instance
+const io = require('socket.io')(server); // io has to have server, so we need app.listen beforehand
+
+io.on('connection', (socket) => {
+  // console.log('IS THIS WORKING', socket);
+  console.log('socketid is: ', socket.id);
+})
 
 const oauthController = require('./controllers/oauthController');
 const { googleController } = require('./controllers/googleController');
@@ -15,7 +28,6 @@ const twitterPassport = require('./passport-config/passport');
 const sessionController = require('./controllers/sessionController');
 const cookieController = require('./controllers/cookieController');
 const userController = require('./controllers/userController');
-const PORT = 3000;
 const apiRouter = require('./routes/api');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -45,17 +57,23 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.get('/callback/google', googleController.setCredentials, (req, res) => {
-  if (
-    process.env.NODE_ENV === 'development' ||
-    process.env.NODE_ENV === undefined
-  ) {
-    // console.log("WE ARE IN DEV ENVIRONMENT")
-    res.redirect('http://localhost:8080');
-  } else {
-    res.sendFile(path.join(__dirname, '../index.html'));
+app.get(
+  '/callback/google',
+  googleController.setCredentials,
+  googleController.getEmail,
+  sessionController.createSession,
+  (req, res) => {
+    if (
+      process.env.NODE_ENV === 'development' ||
+      process.env.NODE_ENV === undefined
+    ) {
+      // console.log("WE ARE IN DEV ENVIRONMENT")
+      res.redirect('http://localhost:8080');
+    } else {
+      res.sendFile(path.join(__dirname, '../index.html'));
+    }
   }
-});
+);
 
 // Oauth flow for github
 app.get(
@@ -136,5 +154,4 @@ app.use(function (err, req, res, next) {
   res.status(errorObj.status).send(JSON.stringify(errorObj.message));
 });
 
-app.listen(PORT, () => console.log('listening on port 3000'));
 module.exports = app;

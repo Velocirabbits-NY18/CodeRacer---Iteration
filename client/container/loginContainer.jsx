@@ -13,9 +13,20 @@ const Login = () => {
         <div className="signIn">
           <a
             className="githubButton"
-            href="https://accounts.google.com/signin/oauth/oauthchooseaccount?access_type=offline&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&response_type=code&client_id=42848154155-tqj1eajsrihntd2s8ov1bbbrco1m1fpq.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback%2Fgoogle&o2v=2&as=LP-o1RCGItXx1OpJeLJTEw&flowName=GeneralOAuthFlow"
+            href="https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&scope=email%20profile&response_type=code&client_id=42848154155-tqj1eajsrihntd2s8ov1bbbrco1m1fpq.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback%2Fgoogle"
           >
-            <span> Log into Google</span>
+            <img
+              className="githubIcon"
+              alt='File:Google "G" Logo.svg'
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+              decoding="async"
+              srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/768px-Google_%22G%22_Logo.svg.png 1.5x, https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1024px-Google_%22G%22_Logo.svg.png 2x"
+              data-file-width="512"
+              data-file-height="522"
+              width="35"
+              height="35"
+            ></img>
+            <span> Log in with Google</span>
           </a>
         </div>
         <div className="signIn">
