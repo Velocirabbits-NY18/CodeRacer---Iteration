@@ -1,7 +1,10 @@
+/* eslint-disable */ 
+
 import React, { Component, useState, useEffect } from 'react';
 import NavBar from '../components/NavBar.jsx';
 import InputField from '../components/InputField.jsx';
 import CodeSnippet from '../components/CodeSnippet.jsx';
+import Leaderboard from '../components/Leaderboard.jsx';
 
 class MainContainer extends Component {
   constructor(props) {
@@ -14,6 +17,8 @@ class MainContainer extends Component {
       completedWords: [],
       hasRace: false,
       raceFinished: true,
+      name: ''
+      // leaderboard: []
     };
     this.handleClick = this.handleClick.bind(this);
     this.giveInputValue = this.giveInputValue.bind(this);
@@ -55,13 +60,20 @@ class MainContainer extends Component {
 
   // Shows the categories after the component is mounted
   componentDidMount() {
+    console.log(this.state);
+
     fetch(`/api/`)
-      .then((category) => category.json())
-      .then((response) => {
-        const categoryArray = response.map((element) => {
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        const categoryArray = data.categories.map((element) => {
           return element.category;
         });
-        this.setState({ categories: categoryArray });
+        const userName = data.name;
+        this.setState({
+          categories: categoryArray,
+          name: userName,
+        });
       });
   }
 
@@ -87,7 +99,11 @@ class MainContainer extends Component {
           giveCompletedWords={this.giveCompletedWords}
           giveInputValue={this.giveInputValue}
           startRace={this.startRace}
+          name={this.state.name}
         />
+
+        {/* <Leaderboard score={this.state.leaderboard} /> */}
+ 
       </div>
     );
   }

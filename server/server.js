@@ -1,3 +1,5 @@
+/* eslint-disable */ 
+
 const express = require('express');
 const path = require('path');
 const cookieparser = require('cookie-parser');
@@ -11,9 +13,13 @@ const io = require('socket.io')(server); // io has to have server, so we need ap
 io.on('connection', (socket) => {
   // console.log('IS THIS WORKING', socket);
   console.log('socketid is: ', socket.id);
+  socket.on('gameFinished', data => {
+    console.log('Socket data: ', data);
+  })
 })
 
 const oauthController = require('./controllers/oauthController');
+const { googleController } = require('./controllers/googleController');
 const sessionController = require('./controllers/sessionController');
 const cookieController = require('./controllers/cookieController');
 const userController = require('./controllers/userController');
@@ -34,8 +40,16 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.get('/callback/google', (req, res) => {
-  res.send(200);
+app.get('/callback/google', googleController.setCredentials, (req, res) => {
+  if (
+    process.env.NODE_ENV === 'development' ||
+    process.env.NODE_ENV === undefined
+  ) {
+    // console.log("WE ARE IN DEV ENVIRONMENT")
+    res.redirect('http://localhost:8080');
+  } else {
+    res.sendFile(path.join(__dirname, '../index.html'));
+  }
 });
 
 // Oauth flow for github
@@ -45,7 +59,10 @@ app.get(
   oauthController.getUser,
   sessionController.createSession,
   (req, res) => {
-    if (process.env.NODE_ENV === 'development') {
+    if (
+      process.env.NODE_ENV === 'development' ||
+      process.env.NODE_ENV === undefined
+    ) {
       // console.log("WE ARE IN DEV ENVIRONMENT")
       res.redirect('localhost:8080');
     } else {
