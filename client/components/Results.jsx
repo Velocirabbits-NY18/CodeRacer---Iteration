@@ -8,6 +8,7 @@ const Results = (props) => {
   if (Object.keys(props.finishedWPM).length) {
     // Show the finished WPM
     resultsDiv = <div id="finishedWPM">{props.finishedWPM.message}</div>;
+    // console.log('current score is: ', props.finishedWPM);
   }
 
   // Text is set to empty string if no category is selected
