@@ -52,11 +52,11 @@ class MainContainer extends Component {
       // .then(json => console.log(json))
       .then((snippets) => {
         // only true if it's a github snippet
-        console.log(typeof snippets);
         if (endpoint === 'My GitHub') {
           if (typeof snippets === 'string') {
-            console.log('sending a string');
-            this.setState({ content: { content: snippets } });
+            this.setState({
+              content: { content: snippets.replace(/(\r\n|\n|\r)/gm, '') },
+            });
           } else
             this.setState({ content: { content: JSON.stringify(snippets) } });
         } else if (typeof snippets === 'string')
