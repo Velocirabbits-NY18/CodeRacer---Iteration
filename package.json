@@ -9,7 +9,8 @@
     "dev": "set \"NODE_ENV=development\" && concurrently \"webpack-dev-server --open\" \"nodemon server/server.js\"",
     "startmac": "node server/server.js",
     "buildmac": "nodemon server/server.js &cross-env NODE_ENV=production webpack ",
-    "devmac": "nodemon server/server.js & cross-env NODE_ENV=development webpack-dev-server --open"
+    "devmac": "nodemon server/server.js & cross-env NODE_ENV=development webpack-dev-server --open",
+    "test": "jest --verbose"
   },
   "repository": {
     "type": "git",
@@ -47,6 +48,9 @@
     "concurrently": "^5.2.0",
     "cross-env": "^7.0.2",
     "css-loader": "^3.5.3",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.4",
     "mini-css-extract-plugin": "^0.9.0",
     "nodemon": "^2.0.3",
     "sass": "^1.26.5",
