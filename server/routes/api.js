@@ -5,8 +5,14 @@ const userController = require('../controllers/userController');
 const router = express.Router();
 
 // populates nav bar with our categories from our database
-router.get('/', snippetController.getCategories, (req, res, next) => {
-  return res.status(200).json(res.locals.categories);
+router.get('/', 
+  snippetController.getCategories,
+  sessionController.verify, // this will send name back to MainContainer
+  (req, res, next) => {
+  return res.status(200).json({
+    categories: res.locals.categories,
+    name: res.locals.name
+  });
 });
 
 // when clicking a category, gets a random snippet from that category and puts it into the codesnippet

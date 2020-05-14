@@ -1,8 +1,11 @@
+/* eslint-disable */
+
 import React, { Component, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import NavBar from '../components/NavBar.jsx';
 import InputField from '../components/InputField.jsx';
 import CodeSnippet from '../components/CodeSnippet.jsx';
+import Leaderboard from '../components/Leaderboard.jsx';
 
 class MainContainer extends Component {
   constructor(props) {
@@ -15,6 +18,7 @@ class MainContainer extends Component {
       completedWords: [],
       hasRace: false,
       raceFinished: true,
+      name: '',
     };
     this.handleClick = this.handleClick.bind(this);
     this.giveInputValue = this.giveInputValue.bind(this);
@@ -62,17 +66,22 @@ class MainContainer extends Component {
 
   // Shows the categories after the component is mounted
   componentDidMount() {
+    console.log(this.state);
+
     fetch(`/api/`)
-      .then((category) => category.json())
-      .then((response) => {
-        const categoryArray = response.map((element) => {
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        const categoryArray = data.categories.map((element) => {
           return element.category;
         });
+        const userName = data.name;
         this.setState({
           categories: [
             ...categoryArray,
             Cookies.get('githubRepos') !== undefined ? 'My GitHub' : null,
           ],
+          name: userName,
         });
       });
   }
@@ -100,12 +109,17 @@ class MainContainer extends Component {
           completedWords={this.state.completedWords}
         />
 
-        <InputField
-          content={this.state.content}
-          giveCompletedWords={this.giveCompletedWords}
-          giveInputValue={this.giveInputValue}
-          startRace={this.startRace}
-        />
+        <div className="inputAndLeaderboardBox">
+          <InputField
+            content={this.state.content}
+            giveCompletedWords={this.giveCompletedWords}
+            giveInputValue={this.giveInputValue}
+            startRace={this.startRace}
+            name={this.state.name}
+          />
+
+          <Leaderboard />
+        </div>
       </div>
     );
   }
