@@ -20,6 +20,8 @@ sessionController.verify = (req, res, next) => {
       res.status(404).send("Couldn't verify jwt");
     } else {
       res.locals.verifiedjwt = result;
+      // console.log(res.locals.verifiedjwt.name); 
+      res.locals.name = res.locals.verifiedjwt.name; // this stores user's name in res.locals
       // console.log('getting through verify middleware')
       return next();
     }

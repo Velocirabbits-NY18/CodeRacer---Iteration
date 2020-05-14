@@ -1,3 +1,5 @@
+/* eslint-disable */ 
+
 import React, { Component, useState, useEffect, useRef } from 'react';
 import Results from './Results.jsx'
 
@@ -47,6 +49,9 @@ const InputField = props => {
     // Sent to userController
   const resetState = () => {
     console.log("this is our final", wordsPerMinute);
+    
+    socket.emit('gameFinished', { name: props.name, score: wordsPerMinute });
+
     setStartTime(0);
     setCompletedWords([]);
     setSnippetSpace([]);
@@ -62,15 +67,16 @@ const InputField = props => {
     fetch(`/api/highScore`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({wordsPerMinute: wordsPerMinute, snippet_id: props.content.snippet_id})
+      body: JSON.stringify({ wordsPerMinute: wordsPerMinute, snippet_id: props.content.snippet_id })
     })
     .then((response) => response.json())
     .then((response) => {
       setWordsPerMinute(0)
-      //response has keys message, wpm
-      setWpmResults(response)
+      // console.log(response);
+      // response has keys message, wpm
+      setWpmResults(response);
     })
   }
 
@@ -145,6 +151,12 @@ const InputField = props => {
         //If there are no more remaining words, call the function to resetState/end the game
         if (remainingWords.length === 0) {
           event.target.value = '';
+
+          // send a message to socket from here, once game is finished
+          // emitResultToSocket()
+          // socket.emit('gameFinished', { name: props.name, score: wordsPerMinute });
+
+
           return resetState();
         }
         // updates finishedWords array to keep track of progress
