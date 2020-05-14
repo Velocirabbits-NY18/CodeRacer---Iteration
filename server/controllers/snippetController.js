@@ -1,3 +1,8 @@
+/* eslint no-inner-declarations: 0 */
+/* eslint-disable no-await-in-loop */
+const axios = require('axios');
+const https = require('https');
+
 const db = require('../models/snippetModel');
 
 const snippetController = {};
@@ -17,7 +22,7 @@ snippetController.getCategories = (req, res, next) => {
 
 // gets all of the snippets from our database that matches the clicked category
 snippetController.getSnippet = (req, res, next) => {
-  let search = req.params.search;
+  const { search } = req.params;
   // console.log('we are getting the snippet with', )
   const query = `SELECT * FROM snippet WHERE category = '${search}'`;
   db.query(query, (err, data) => {
@@ -31,6 +36,67 @@ snippetController.getSnippet = (req, res, next) => {
   });
 };
 
+snippetController.getGitHubCode = async (req, res, next) => {
+  try {
+    const { githubRepos } = req.cookies;
+    const repoUrls = await axios(githubRepos, {
+      headers: {
+        Authorization: `token ${req.cookies.githubAccessToken}`,
+      },
+    });
+    const repoContentUrls = repoUrls.data.map((repo) => repo.contents_url);
+    // console.log('repoContentUrls: ', repoContentUrls);
+    const repoData = await Promise.all(
+      repoContentUrls.map((repoUrl) => {
+        const sliceUrl = repoUrl.slice(0, repoUrl.indexOf('{+path}'));
+
+        return axios(sliceUrl, {
+          headers: {
+            Authorization: `token ${req.cookies.githubAccessToken}`,
+          },
+        }).catch((e) => e);
+      })
+    );
+
+    const validRepos = repoData
+      .filter((result) => !(result instanceof Error))
+      .map((repo) => repo.data);
+
+    let rawCode;
+    while (!rawCode) {
+      const codeData = await findGitHubFile(validRepos);
+      rawCode = codeData.data;
+      //console.log('Code Data ? ', rawCode === undefined);
+    }
+    res.locals.snippet = rawCode;
+    //console.log('raw code: ', rawCode);
+    next();
+
+    async function findGitHubFile(listOfRepos) {
+      const randomRepo =
+        listOfRepos[Math.floor(Math.random() * listOfRepos.length)];
+      let downloadUrl;
+      while (!downloadUrl) {
+        downloadUrl =
+          randomRepo[Math.floor(Math.random() * randomRepo.length)]
+            .download_url;
+      }
+      const code = await axios(downloadUrl, {
+        headers: {
+          Authorization: `token ${req.cookies.githubAccessToken}`,
+        },
+      });
+      return code;
+    }
+  } catch (err) {
+    next({
+      log: `Error in getGitHubCode: ${err}`,
+      status: 500,
+      message: 'Couldnt get the users github code',
+    });
+  }
+};
+
 // populates the table (snippet) with our entries to the SQL database
 // these were hard coded and added to the database and this function is no longer nessecary
 // after populating the database
@@ -42,10 +108,10 @@ snippetController.createDatabase = async (req, res, next) => {
                  RETURNING *`;
   const promiseArray = [];
   snippets.forEach((element) => {
-    let totalWords = element[1].length / 5;
-    let averageTime = Math.floor((totalWords / 25) * 60) + 15;
+    const totalWords = element[1].length / 5;
+    const averageTime = Math.floor((totalWords / 25) * 60) + 15;
     element.push(averageTime);
-    let values = element;
+    const values = element;
     promiseArray.push(db.query(query, values));
   });
   Promise.all(promiseArray).then((res) => next());
