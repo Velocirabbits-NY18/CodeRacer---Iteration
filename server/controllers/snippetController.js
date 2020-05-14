@@ -1,3 +1,5 @@
+/* eslint no-inner-declarations: 0 */
+/* eslint-disable no-await-in-loop */
 const axios = require('axios');
 const https = require('https');
 
@@ -37,14 +39,15 @@ snippetController.getSnippet = (req, res, next) => {
 snippetController.getGitHubCode = async (req, res, next) => {
   try {
     const { githubRepos } = req.cookies;
-    const results = await axios(githubRepos, {
+    const repoUrls = await axios(githubRepos, {
       headers: {
         Authorization: `token ${req.cookies.githubAccessToken}`,
       },
     });
-    const repos = results.data.map((repo) => repo.contents_url);
+    const repoContentUrls = repoUrls.data.map((repo) => repo.contents_url);
+    // console.log('repoContentUrls: ', repoContentUrls);
     const repoData = await Promise.all(
-      repos.map((repoUrl) => {
+      repoContentUrls.map((repoUrl) => {
         const sliceUrl = repoUrl.slice(0, repoUrl.indexOf('{+path}'));
 
         return axios(sliceUrl, {
@@ -54,30 +57,37 @@ snippetController.getGitHubCode = async (req, res, next) => {
         }).catch((e) => e);
       })
     );
-    const validRepos = repoData.filter((result) => !(result instanceof Error));
-    const randomRepo =
-      validRepos[Math.floor(Math.random() * validRepos.length)];
-    // console.log(randomRepo.data);
-    const randomFile =
-      randomRepo.data[Math.floor(Math.random() * randomRepo.data.length)];
-    // console.log(randomFile.download_url);
-    // const code = await https
-    //   .request(randomFile.download_url, (response) => {
-    //     console.log(response.(req.data));
-    //   })
-    //   .end();
 
-    // const ressy = await code.json();
-    // console.log(code.data);
+    const validRepos = repoData
+      .filter((result) => !(result instanceof Error))
+      .map((repo) => repo.data);
 
-    const code = await axios(randomFile.download_url, {
-      headers: {
-        Authorization: `token ${req.cookies.githubAccessToken}`,
-      },
-    });
-    // console.log(code.data);
-    res.locals.snippet = code.data;
+    let rawCode;
+    while (!rawCode) {
+      const codeData = await findGitHubFile(validRepos);
+      rawCode = codeData.data;
+      //console.log('Code Data ? ', rawCode === undefined);
+    }
+    res.locals.snippet = rawCode;
+    //console.log('raw code: ', rawCode);
     next();
+
+    async function findGitHubFile(listOfRepos) {
+      const randomRepo =
+        listOfRepos[Math.floor(Math.random() * listOfRepos.length)];
+      let downloadUrl;
+      while (!downloadUrl) {
+        downloadUrl =
+          randomRepo[Math.floor(Math.random() * randomRepo.length)]
+            .download_url;
+      }
+      const code = await axios(downloadUrl, {
+        headers: {
+          Authorization: `token ${req.cookies.githubAccessToken}`,
+        },
+      });
+      return code;
+    }
   } catch (err) {
     next({
       log: `Error in getGitHubCode: ${err}`,
@@ -98,10 +108,10 @@ snippetController.createDatabase = async (req, res, next) => {
                  RETURNING *`;
   const promiseArray = [];
   snippets.forEach((element) => {
-    let totalWords = element[1].length / 5;
-    let averageTime = Math.floor((totalWords / 25) * 60) + 15;
+    const totalWords = element[1].length / 5;
+    const averageTime = Math.floor((totalWords / 25) * 60) + 15;
     element.push(averageTime);
-    let values = element;
+    const values = element;
     promiseArray.push(db.query(query, values));
   });
   Promise.all(promiseArray).then((res) => next());

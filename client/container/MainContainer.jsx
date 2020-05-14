@@ -53,7 +53,13 @@ class MainContainer extends Component {
       .then((snippets) => {
         // only true if it's a github snippet
         console.log(typeof snippets);
-        if (typeof snippets === 'string')
+        if (endpoint === 'My GitHub') {
+          if (typeof snippets === 'string') {
+            console.log('sending a string');
+            this.setState({ content: { content: snippets } });
+          } else
+            this.setState({ content: { content: JSON.stringify(snippets) } });
+        } else if (typeof snippets === 'string')
           this.setState({ content: { content: snippets } });
         else {
           const chosenSnippet =
