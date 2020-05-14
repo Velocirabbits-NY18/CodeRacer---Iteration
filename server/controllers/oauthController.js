@@ -28,6 +28,7 @@ oauthController.getGithubToken = (req, res, next) => {
 oauthController.getUser = (req, res, next) => {
   // console.log("WE ARE GETTING USER")
   // console.log(" THIS IS OUR ID",res.locals.id);
+  res.cookie('githubAccessToken', res.locals.id.access_token);
   fetch('https://api.github.com/user', {
     headers: {
       Authorization: `token ${res.locals.id.access_token}`,

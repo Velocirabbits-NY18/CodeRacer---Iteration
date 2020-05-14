@@ -1,4 +1,4 @@
-/* eslint-disable */ 
+/* eslint-disable */
 
 const express = require('express');
 const path = require('path');
@@ -17,11 +17,11 @@ const io = require('socket.io')(server); // io has to have server, so we need ap
 io.on('connection', (socket) => {
   // console.log('IS THIS WORKING', socket);
   console.log('socketid is: ', socket.id);
-  socket.on('gameFinished', data => {
+  socket.on('gameFinished', (data) => {
     console.log('Socket data: ', data);
     io.emit('newScores', data);
-  })
-})
+  });
+});
 
 const oauthController = require('./controllers/oauthController');
 const { googleController } = require('./controllers/googleController');

@@ -1,4 +1,4 @@
-/* eslint-disable */ 
+/* eslint-disable */
 
 import React, { Component, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
@@ -18,7 +18,7 @@ class MainContainer extends Component {
       completedWords: [],
       hasRace: false,
       raceFinished: true,
-      name: ''
+      name: '',
     };
     this.handleClick = this.handleClick.bind(this);
     this.giveInputValue = this.giveInputValue.bind(this);
@@ -51,10 +51,22 @@ class MainContainer extends Component {
       .then((snippet) => snippet.json())
       // .then(json => console.log(json))
       .then((snippets) => {
-        const chosenSnippet =
-          snippets[Math.floor(Math.random() * snippets.length)];
-        //console.log(chosenSnippet)
-        this.setState({ content: chosenSnippet });
+        // only true if it's a github snippet
+        console.log(typeof snippets);
+        if (endpoint === 'My GitHub') {
+          if (typeof snippets === 'string') {
+            console.log('sending a string');
+            this.setState({ content: { content: snippets } });
+          } else
+            this.setState({ content: { content: JSON.stringify(snippets) } });
+        } else if (typeof snippets === 'string')
+          this.setState({ content: { content: snippets } });
+        else {
+          const chosenSnippet =
+            snippets[Math.floor(Math.random() * snippets.length)];
+          //console.log('chosenSnippet: ', chosenSnippet);
+          this.setState({ content: chosenSnippet });
+        }
       });
   }
 
@@ -71,7 +83,10 @@ class MainContainer extends Component {
         });
         const userName = data.name;
         this.setState({
-          categories: categoryArray,
+          categories: [
+            ...categoryArray,
+            Cookies.get('githubRepos') !== undefined ? 'My GitHub' : null,
+          ],
           name: userName,
         });
       });
@@ -111,7 +126,6 @@ class MainContainer extends Component {
 
           <Leaderboard />
         </div>
- 
       </div>
     );
   }
