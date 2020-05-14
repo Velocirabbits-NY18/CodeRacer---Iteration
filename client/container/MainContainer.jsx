@@ -83,10 +83,10 @@ class MainContainer extends Component {
         });
         const userName = data.name;
         this.setState({
-          categories: [
-            ...categoryArray,
-            Cookies.get('githubRepos') !== undefined ? 'My GitHub' : null,
-          ],
+          categories:
+            Cookies.get('githubRepos') === undefined
+              ? categoryArray
+              : [...categoryArray, 'My GitHub'],
           name: userName,
         });
       });
