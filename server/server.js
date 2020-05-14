@@ -90,7 +90,7 @@ app.get(
       process.env.NODE_ENV === undefined
     ) {
       // console.log("WE ARE IN DEV ENVIRONMENT")
-      res.redirect('localhost:8080');
+      res.redirect('http://localhost:8080/');
     } else {
       res.sendFile(path.join(__dirname, '../index.html'));
     }
