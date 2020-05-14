@@ -1,4 +1,5 @@
 const axios = require('axios');
+const https = require('https');
 
 const db = require('../models/snippetModel');
 
@@ -19,6 +20,7 @@ snippetController.getCategories = (req, res, next) => {
 
 // gets all of the snippets from our database that matches the clicked category
 snippetController.getSnippet = (req, res, next) => {
+  const { search } = req.params;
   // console.log('we are getting the snippet with', )
   const query = `SELECT * FROM snippet WHERE category = '${search}'`;
   db.query(query, (err, data) => {
@@ -41,23 +43,41 @@ snippetController.getGitHubCode = async (req, res, next) => {
       },
     });
     const repos = results.data.map((repo) => repo.contents_url);
-    console.log(repos);
     const repoData = await Promise.all(
       repos.map((repoUrl) => {
-        const sliceUrl = repoUrl.slice(0, repoUrl.indexOf('{+path}') - 1);
-        console.log(sliceUrl);
-        try {
-          axios(sliceUrl, {
-            headers: {
-              Authorization: `token ${req.cookies.githubAccessToken}`,
-            },
-          });
-        } catch (err) {
-          console.log(err);
-        }
+        const sliceUrl = repoUrl.slice(0, repoUrl.indexOf('{+path}'));
+
+        return axios(sliceUrl, {
+          headers: {
+            Authorization: `token ${req.cookies.githubAccessToken}`,
+          },
+        }).catch((e) => e);
       })
     );
-    console.log(repoData);
+    const validRepos = repoData.filter((result) => !(result instanceof Error));
+    const randomRepo =
+      validRepos[Math.floor(Math.random() * validRepos.length)];
+    // console.log(randomRepo.data);
+    const randomFile =
+      randomRepo.data[Math.floor(Math.random() * randomRepo.data.length)];
+    // console.log(randomFile.download_url);
+    // const code = await https
+    //   .request(randomFile.download_url, (response) => {
+    //     console.log(response.(req.data));
+    //   })
+    //   .end();
+
+    // const ressy = await code.json();
+    // console.log(code.data);
+
+    const code = await axios(randomFile.download_url, {
+      headers: {
+        Authorization: `token ${req.cookies.githubAccessToken}`,
+      },
+    });
+    // console.log(code.data);
+    res.locals.snippet = code.data;
+    next();
   } catch (err) {
     next({
       log: `Error in getGitHubCode: ${err}`,

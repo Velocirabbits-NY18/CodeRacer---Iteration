@@ -47,10 +47,16 @@ class MainContainer extends Component {
       .then((snippet) => snippet.json())
       // .then(json => console.log(json))
       .then((snippets) => {
-        const chosenSnippet =
-          snippets[Math.floor(Math.random() * snippets.length)];
-        //console.log(chosenSnippet)
-        this.setState({ content: chosenSnippet });
+        // only true if it's a github snippet
+        console.log(typeof snippets);
+        if (typeof snippets === 'string')
+          this.setState({ content: { content: snippets } });
+        else {
+          const chosenSnippet =
+            snippets[Math.floor(Math.random() * snippets.length)];
+          //console.log('chosenSnippet: ', chosenSnippet);
+          this.setState({ content: chosenSnippet });
+        }
       });
   }
 
