@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "Practice typing code alone or with other users to improve typing speed",
   "main": "index.js",
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  },
   "scripts": {
     "start": "set \"NODE_ENV=production\" && nodemon server/server.js",
     "build": "set \"NODE_ENV=production\" && webpack",
@@ -24,11 +29,13 @@
   "homepage": "https://github.com/Axolotl-4/CodeRacer#readme",
   "dependencies": {
     "axios": "^0.19.2",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "google-apis": "^1.0.0",
     "googleapis": "^50.0.0",
+    "jest": "^26.0.1",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.6.0",
@@ -39,7 +46,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "socket.io": "^2.3.0",
-    "socket.io-client": "^2.3.0"
+    "socket.io-client": "^2.3.0",
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",

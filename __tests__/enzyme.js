@@ -1,5 +1,5 @@
 import React from 'react';
-import { configure, mount, shallow } from 'enzyme';
+import { configure, mount, shallow, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16'; // adapter for our version of React
 import toJson from 'enzyme-to-json'; // to render components to JSON object
 /*
@@ -34,21 +34,35 @@ configure({ adapter: new Adapter() });
  */
 
 // describe React tests
-describe('React component unit tests', () => {
-  describe('App display', () => {
-    /* Expectation for App
-    1. if logged in have Main Container
-    2. if not logged in have Login Container
-  */
-    let wrapper;
+describe('<App />', () => {
+  // beforeEach(() => {
+  //   wrapper = shallow(<App />);
+  // });
 
-    it('Renders a <div> tag with classname containers', () => {
-      const props = {
-        isLoggenIn: false,
-      };
-      wrapper = shallow(<App {...props} />);
-    });
+  // afterEach(() => {
+  //   jest.clearAllMocks();
+  // });
+
+  xit('renders a LoginContainer on initial load', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find('div').hasClass('containers')).toEqual(true);
+    expect(wrapper.find(LoginContainer)).toHaveLength(1);
   });
+
+  it('renders a MainContainer if logged in', () => {
+    const realUseState = React.useState;
+    const stubInitialState = true;
+    const spy = jest
+      .spyOn(React, 'useState')
+      .mockImplementationOnce(() => realUseState(stubInitialState));
+    const wrapper = shallow(<App />);
+    expect(wrapper.find('div').hasClass('containers')).toEqual(true);
+    expect(wrapper.find(LoginContainer)).toHaveLength(1);
+    // set isLoggedInto true
+    // expect(wrapper.find('div').hasClass('containers')).toEqual(true);
+    // expect(wrapper.find(MainContainer)).toHaveLength(1);
+  });
+
   /* Expectation for Login Container
     1. Render div with className login
     2. div with className login should have one child, a div with className message
