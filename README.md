@@ -1,4 +1,15 @@
 # CodeRacer
+A typing game that tests your speed and accuracy 
 
-Uncomment the console.logs for a better understanding of the code and how it works.
-Looks overwhelming at first, but isn't that bad.
+#### Features
+
+#### How to Use
+<details><summary>Login</summary>
+  <ul>
+    <li>GitHub</li>
+    <li>Google</li>
+    <li>Twitter</li>
+  </ul>
+</details>
+<details><summary>Play with friends</summary>
+<details><summary>Type your OWN code</summary>
