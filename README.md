@@ -32,3 +32,10 @@ A typing game that tests your speed and accuracy
 </ul>
 <p> #2 </p>
 <p> #3 </p>
+<img src='/Users/joju/JavaScript/Iteration Program/CodeRacer---Iteration/assets/read_1.png' >
+<img src='/Users/joju/JavaScript/Iteration Program/CodeRacer---Iteration/assets/read_2.png' >
+<img src='/Users/joju/JavaScript/Iteration Program/CodeRacer---Iteration/assets/read_3.png' >
+<img src='/Users/joju/JavaScript/Iteration Program/CodeRacer---Iteration/assets/read_4.png' >
+<img src='/Users/joju/JavaScript/Iteration Program/CodeRacer---Iteration/assets/read_5.png' >
+<img src='/Users/joju/JavaScript/Iteration Program/CodeRacer---Iteration/assets/read_6.png' >
+
