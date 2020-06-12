@@ -39,3 +39,4 @@ A typing game that tests your speed and accuracy
 <img src='/Users/joju/JavaScript/Iteration Program/CodeRacer---Iteration/assets/read_5.png' >
 <img src='/Users/joju/JavaScript/Iteration Program/CodeRacer---Iteration/assets/read_6.png' >
 
+
