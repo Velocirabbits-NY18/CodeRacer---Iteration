@@ -2,7 +2,7 @@
 CodeRacer 
 </h1>
 <p align="center">
-A typing game that tests your speed and accuracy
+A typing game that tests your speed and accuracy with code
 </p>
 
 <h3>Features</h3>
@@ -21,6 +21,7 @@ A typing game that tests your speed and accuracy
     <li>Display everyone's score when playing with friends</li>
   </ul>
 <li>Type your<em> own </em>code from GitHub</li>
+<li>Get information about your code snippet from 'Your Snippet's Function is' display</li>
 </ul>
 
 <h3>How to Use</h3>
@@ -43,7 +44,7 @@ A typing game that tests your speed and accuracy
     <img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_4.png' >
   </details>
 </p>
-<p>Your mistakes will be highlighted in red, but you can go back to fix them. When you are finished with a word, press enter.</summary.</p>
+<p>Your mistakes will be highlighted in red, but you can go back to fix them. When you are finished with a word, hit the space button.</summary.</p>
 <p>
   <details>
     <summary>When you are finished your WPM will be displayed on the leaderboard.</summary>
