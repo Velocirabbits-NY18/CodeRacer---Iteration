@@ -24,6 +24,7 @@ A typing game that tests your speed and accuracy
 </ul>
 
 <h3>How to Use</h3>
+<img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_1.png' width='500px'>
 <p> Login with: </p>
 <ul>
 <li>GitHub</li>
@@ -32,10 +33,9 @@ A typing game that tests your speed and accuracy
 </ul>
 <p> #2 </p>
 <p> #3 </p>
-<img src='/Users/joju/JavaScript/Iteration Program/CodeRacer---Iteration/assets/read_1.png' >
-<img src='/Users/joju/JavaScript/Iteration Program/CodeRacer---Iteration/assets/read_2.png' >
-<img src='/Users/joju/JavaScript/Iteration Program/CodeRacer---Iteration/assets/read_3.png' >
-<img src='/Users/joju/JavaScript/Iteration Program/CodeRacer---Iteration/assets/read_4.png' >
-<img src='/Users/joju/JavaScript/Iteration Program/CodeRacer---Iteration/assets/read_5.png' >
-<img src='/Users/joju/JavaScript/Iteration Program/CodeRacer---Iteration/assets/read_6.png' >
+<img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_2.png' >
+<img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_3.png' >
+<img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_4.png' >
+<img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_5.png' >
+<img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_6.png' >
 
