@@ -24,19 +24,29 @@ A typing game that tests your speed and accuracy
 </ul>
 
 <h3>How to Use</h3>
-<img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_1.png' width='500px'>
-<p> Login with: </p>
-<ul>
-<li>GitHub</li>
-<li>Google</li>
-<li>Twitter</li>
-</ul>
-<p> #2 </p>
-<p> #3 </p>
-<img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_2.png' >
-<img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_3.png' >
-<img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_4.png' >
-<img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_5.png' >
-<img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_6.png' >
-
-
+<p>
+  <details>
+    <summary>Login with GitHub, Google, and Twitter.</summary>
+    <img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_1.png' width='500px'>
+  </details>
+</p>
+<p>
+  <details>
+    <summary>If logged in with <strong>GitHub</strong> you can practice typing your own code by selecting the GitHub tab.</summary>
+    <img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_2.png' >
+  </details>
+</p>
+<p>Once logged in you will be prompted to select a category to get started.</summary.</p>
+<p>
+  <details>
+    <summary>Select a category, count down from 5, and Go!</summary>
+    <img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_4.png' >
+  </details>
+</p>
+<p>Your mistakes will be highlighted in red, but you can go back to fix them. When you are finished with a word, press enter.</summary.</p>
+<p>
+  <details>
+    <summary>When you are finished your WPM will be displayed on the leaderboard.</summary>
+    <img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_6.png' >
+  </details>
+</p>
