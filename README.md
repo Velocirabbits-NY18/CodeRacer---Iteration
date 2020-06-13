@@ -51,3 +51,17 @@ A typing game that tests your speed and accuracy with code
     <img src='https://github.com/JojuOlaode/CodeRacer---Iteration/blob/readme/assets/read_6.png' >
   </details>
 </p>
+
+#### Authors
+```
+Contributors:
+Alex Havas @LOLDragoon
+Mark Lee @markcmlee
+Hang Xu @nplaner
+
+Keriann Lin @keliphan
+Joju Olaode @JojuOlaode
+Adam Straus @a-straus
+Kim Wysocki @KChantal
+```
+
